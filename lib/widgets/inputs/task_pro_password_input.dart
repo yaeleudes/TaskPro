@@ -32,6 +32,9 @@ class _TaskProPasswordInputState extends State<TaskProPasswordInput> {
         obscuringCharacter: "*",
         decoration: InputDecoration(
           hintText: widget.hintText,
+          hintStyle: const TextStyle(
+            fontWeight: FontWeight.w400
+          ),
           focusColor: Colors.black,
           enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.black, width: 2),

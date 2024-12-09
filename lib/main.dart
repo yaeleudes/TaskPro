@@ -10,6 +10,7 @@ import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
 import 'widgets/buttons/task_pro_action_button.dart';
 import 'widgets/inputs/task_pro_common_input.dart';
 import 'widgets/inputs/task_pro_password_input.dart';
+import 'widgets/inputs/task_pro_research_input.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +42,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   int _counter = 0;
   int _currentIndex = 0;
 
@@ -102,6 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   controller: passwordController,
                   hintText: "Votre mot de passe",
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                TaskProResearchInput(controller: searchController, hintText:"tâches, catégorie, date et plus")
               ],
             ),
           ),

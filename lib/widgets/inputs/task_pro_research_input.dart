@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:task_pro/constants/task_pro_color.dart';
 
-class TaskProCommonInput extends StatelessWidget {
+class TaskProResearchInput extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  const TaskProCommonInput({super.key, required this.controller, required this.hintText});
+  const TaskProResearchInput({super.key, required this.controller, required this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +20,30 @@ class TaskProCommonInput extends StatelessWidget {
           hintStyle: const TextStyle(
             fontWeight: FontWeight.w400
           ),
+          filled: true,
+          fillColor: TaskProColor.third,
           focusColor: Colors.black,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black, width: 2),
+            borderSide: BorderSide(color: TaskProColor.third, width: 2),
             borderRadius: BorderRadius.circular(12)
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black, width: 2),
+            borderSide: BorderSide(color: TaskProColor.third, width: 2),
             borderRadius: BorderRadius.circular(12)
           ),
             errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red, width: 2),
+            borderSide: BorderSide(color: TaskProColor.third, width: 2),
             borderRadius: BorderRadius.circular(12)
           ),
           border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black, width: 2),
+            borderSide: BorderSide(color: TaskProColor.third, width: 2),
             borderRadius: BorderRadius.circular(12)
-          )
+          ),
+          prefixIcon: const HugeIcon(
+                icon: HugeIcons.strokeRoundedSearch01,
+                color: Colors.black,
+                size: 24.0,
+              )
         ),
       ),
     );
