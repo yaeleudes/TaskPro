@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:task_pro/constants/task_pro_color.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
-import 'package:task_pro/widgets/buttons/task_pro_action_button.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
-import 'package:task_pro/widgets/inputs/task_pro_common_input.dart';
 
+import 'screens/pages/agenda_page.dart';
+import 'screens/pages/parcourir_page.dart';
+import 'screens/pages/recherche_page.dart';
+import 'screens/pages/today_page.dart';
 import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
-import 'widgets/inputs/task_pro_password_input.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   int _counter = 0;
+  int _currentIndex = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -46,50 +47,67 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  final List<Widget> _pages = const [
+    TodayPage(),
+    AgendaPage(),
+    RecherchePage(),
+    ParcourirPage()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                TaskProActionButton(
-                    buttonTitle: "Rejoindre TaskPro",
-                    onPressed: () {
-                      print("action");
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                TaskProCommonInput(
-                  controller: emailController, 
-                  hintText: "Votre e-mail"
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TaskProPasswordInput(
-                  controller: passwordController,
-                  hintText: "Votre mot de passe",
-                ),
-              ],
-            ),
-          ),
-        ),
-        bottomNavigationBar: TaskProBottomNavbar(),
-        floatingActionButton: TaskProFloatingButton(onPressed: _incrementCounter));
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      // body: Center(
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(10),
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: <Widget>[
+      //           const Text(
+      //             'You have pushed the button this many times:',
+      //           ),
+      //           Text(
+      //             '$_counter',
+      //             style: Theme.of(context).textTheme.headlineMedium,
+      //           ),
+      //           TaskProActionButton(
+      //               buttonTitle: "Rejoindre TaskPro",
+      //               onPressed: () {
+      //                 print("action");
+      //               }),
+      //           SizedBox(
+      //             height: 10,
+      //           ),
+      //           TaskProCommonInput(
+      //             controller: emailController, 
+      //             hintText: "Votre e-mail"
+      //           ),
+      //           SizedBox(
+      //             height: 10,
+      //           ),
+      //           TaskProPasswordInput(
+      //             controller: passwordController,
+      //             hintText: "Votre mot de passe",
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      
+      body: _pages[_currentIndex],
+
+      bottomNavigationBar: TaskProBottomNavbar(currentIndex: _currentIndex, onTap: _onItemTapped,),
+      floatingActionButton: TaskProFloatingButton(onPressed: _incrementCounter)
+    );
   }
 }
