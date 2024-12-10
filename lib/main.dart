@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
+import 'package:task_pro/widgets/modals/task_pro_modal.dart';
 
 import 'screens/pages/agenda_page.dart';
 import 'screens/pages/parcourir_page.dart';
@@ -68,11 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
+        ),
+        body: Center(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -94,9 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 10,
                 ),
                 TaskProCommonInput(
-                  controller: emailController, 
-                  hintText: "Votre e-mail"
-                ),
+                    controller: emailController, hintText: "Votre e-mail"),
                 SizedBox(
                   height: 10,
                 ),
@@ -107,16 +106,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   height: 10,
                 ),
-                TaskProResearchInput(controller: searchController, hintText:"tâches, catégorie, date et plus")
+                TaskProResearchInput(
+                    controller: searchController,
+                    hintText: "tâches, catégorie, date et plus")
               ],
             ),
           ),
         ),
-      
-      // body: _pages[_currentIndex],
 
-      bottomNavigationBar: TaskProBottomNavbar(currentIndex: _currentIndex, onTap: _onItemTapped,),
-      floatingActionButton: TaskProFloatingButton(onPressed: _incrementCounter)
-    );
+        // body: _pages[_currentIndex],
+
+        bottomNavigationBar: TaskProBottomNavbar(
+          currentIndex: _currentIndex,
+          onTap: _onItemTapped,
+        ),
+        floatingActionButton: TaskProFloatingButton(onPressed: () {
+          TaskProModal.ajouterTache(context);
+        }));
   }
 }
