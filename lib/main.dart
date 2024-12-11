@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:task_pro/constants/task_pro_theme.dart';
+import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
+import 'package:task_pro/widgets/modals/task_pro_modal.dart';
+
+import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
+import 'widgets/buttons/task_pro_action_button.dart';
+import 'widgets/inputs/task_pro_common_input.dart';
+import 'widgets/inputs/task_pro_password_input.dart';
+import 'widgets/inputs/task_pro_research_input.dart';
+
+
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting('fr_FR', null).then((_) {
+    runApp(MyApp(
+    ));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -32,6 +46,16 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      locale: const Locale('fr', 'FR'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('fr', 'FR'),
+      ],
     );
   }
 }
