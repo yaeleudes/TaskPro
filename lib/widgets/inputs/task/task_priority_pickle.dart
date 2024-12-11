@@ -83,7 +83,7 @@ class _TaskPriorityPickleState extends State<TaskPriorityPickle> {
                       widget.priorityValue!,
                       style: TextStyle(
                         color: priorityColor(),
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
