@@ -20,10 +20,10 @@ class AddTaskDropdown extends StatelessWidget {
       ),
       child: DropdownButton(
         value: dropDownValue,
-        items: const [
-          DropdownMenuItem(child: Text("Education"), value: 'Education',),
-          DropdownMenuItem(child: Text("Perso"), value: 'Person',),
-          DropdownMenuItem(child: Text("Travail"), value: 'Travail',),
+        items: [
+          DropdownMenuItem(child: Container(child: Row(children: [Text('Education'), SizedBox(width: 4,),Image.asset("assets/icons/education.png", width: 22,)],),), value: 'Education',),
+          DropdownMenuItem(child: Container(child: Row(children: [Text('Perso'), SizedBox(width: 4,),Image.asset("assets/icons/perso.png", width: 22,)],),), value: 'Person',),
+          DropdownMenuItem(child: Container(child: Row(children: [Text('Travail'), SizedBox(width: 4,),Image.asset("assets/icons/travail.png", width: 22,)],),), value: 'Travail',),
         ],
         onChanged: onChanged,
         isExpanded: true,

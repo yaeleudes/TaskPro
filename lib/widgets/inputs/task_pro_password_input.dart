@@ -37,16 +37,16 @@ class _TaskProPasswordInputState extends State<TaskProPasswordInput> {
           ),
           focusColor: Colors.black,
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black, width: 2),
+              borderSide: const BorderSide(color: Colors.black, width: 1.5),
               borderRadius: BorderRadius.circular(12)),
           focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black, width: 2),
+              borderSide: const BorderSide(color: Colors.black, width: 1.5),
               borderRadius: BorderRadius.circular(12)),
           errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red, width: 2),
+              borderSide: const BorderSide(color: Colors.red, width: 1.5),
               borderRadius: BorderRadius.circular(12)),
           border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black, width: 2),
+              borderSide: const BorderSide(color: Colors.black, width: 1.5),
               borderRadius: BorderRadius.circular(12)),
           suffixIcon:IconButton(
             onPressed: () {

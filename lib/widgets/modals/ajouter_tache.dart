@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:task_pro/widgets/buttons/task_pro_action_button.dart';
 import 'package:task_pro/widgets/inputs/task/task_date_pickle.dart';
+import 'package:task_pro/widgets/inputs/task/task_priority_pickle.dart';
 
-import '../../constants/task_pro_color.dart';
+import '../inputs/task/add_task_description_input.dart';
 import '../inputs/task/add_task_dropdown.dart';
-import '../inputs/task/add_task_input.dart';
+import '../inputs/task/add_task_title_input.dart';
 import '../inputs/task/task_remind_pickle.dart';
 
 class AjouterTache extends StatefulWidget {
@@ -17,7 +18,13 @@ class AjouterTache extends StatefulWidget {
 
 class _AjouterTacheState extends State<AjouterTache> {
   TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   String? dropDownValue;
+  String? _selectedPriority = "Priorité";
+  String? _selectedRemind = "Rappel";
+  DateTime? _selectedDay = DateTime.now(); 
+  TimeOfDay? _selectedTime = TimeOfDay.now();
+  Map<String, dynamic>? selectedDateData;
 
   void _oonChanged(String? value){
     setState(() {
@@ -25,11 +32,34 @@ class _AjouterTacheState extends State<AjouterTache> {
     });
   }
 
+  void _onSelectedPriority(String? value){
+    setState(() {
+      _selectedPriority = value;
+    });
+    print("Priorité sélectionnée : $value");
+  }
+
+  void _onSelectedRemind(String? value){
+    setState(() {
+      _selectedRemind = value;
+    });
+    print("Rappel sélectionnée : $value");
+  }
+
+  void _onDateSelected(Map<String, dynamic> result) {
+    setState(() {
+      selectedDateData = result;
+      _selectedDay = result['selectedDay'] as DateTime?;
+      _selectedTime = result['selectedTime'] as TimeOfDay?;
+    });
+    print('Données reçues dans AjouterTache : $result');
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height * .7,
+      height: size.height * .62,
       child: Form(
         child: Column(
         children: [
@@ -55,27 +85,34 @@ class _AjouterTacheState extends State<AjouterTache> {
               ],
             ),
           ),
+
+          // Champs pour la création d'une tâche
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TaskTitleInput(controller: titleController, label: "Titre :", hintText: "ex.: Lire un chapitre par joure",),
-                const SizedBox(height: 16,),
-                TaskTitleInput(controller: titleController, label: "Description :", hintText: "Décrivez votre tâche ici",),
-                const SizedBox(height: 16,),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                TaskTitleInput(controller: titleController, hintText: "Titre de la tâche",),
+                const SizedBox(height: 8,),
+                TaskDescription(controller: descriptionController, hintText: "Décrivez votre tâche ici",),
+                const SizedBox(height: 8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TaskDatePickle(label: "Date d'échéance :",),
-                    TaskRemindPickle(label: "Rappels :",),
+                    TaskDatePickle(onDateSelected: _onDateSelected,),
+                    TaskRemindPickle(selectedRemind: _selectedRemind, onSelectedRemind: _onSelectedRemind,),
+                    TaskPriorityPickle(priorityValue: _selectedPriority, onSelected: _onSelectedPriority,)
                   ],
                 ),
                 const SizedBox(height: 16,),
                 AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _oonChanged,),
                 const SizedBox(height: 16,),
-                TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){print("Tache ajoutée");})
+                TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){
+                  print("Tache ajoutée");
+                  print('Jour sélectionné : ${_selectedDay?.toIso8601String()}');
+                  print('Heure sélectionnée : ${_selectedTime?.format(context)}');
+                })
               ],
             ),
           )
