@@ -14,7 +14,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
-    runApp(MyApp(
+    runApp(const MyApp(
     ));
   });
 }
@@ -103,19 +103,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       print("action");
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                TaskProCommonInput(
-                    controller: emailController, hintText: "Votre e-mail"),
-                SizedBox(
+                TaskProCommonInput(controller: emailController, hintText: "Votre e-mail"),
+                const SizedBox(
                   height: 10,
                 ),
                 TaskProPasswordInput(
                   controller: passwordController,
                   hintText: "Votre mot de passe",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TaskProResearchInput(

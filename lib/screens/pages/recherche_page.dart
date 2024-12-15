@@ -10,6 +10,6 @@ class RecherchePage extends StatefulWidget {
 class _RecherchePageState extends State<RecherchePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("recherche"),);
+    return const Center(child: Text("recherche"),);
   }
 }

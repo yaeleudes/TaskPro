@@ -10,6 +10,6 @@ class ParcourirPage extends StatefulWidget {
 class _ParcourirPageState extends State<ParcourirPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("parcourir"),);
+    return const Center(child: Text("parcourir"),);
   }
 }

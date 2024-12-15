@@ -9,9 +9,9 @@ class TaskProFloatingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: onPressed,
-      child: const Icon(Icons.add),
       backgroundColor: TaskProColor.primary,
       foregroundColor: Colors.white,
+      child: const Icon(Icons.add),
     );
   }
 }
