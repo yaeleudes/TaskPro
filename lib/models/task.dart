@@ -4,7 +4,7 @@ class Task {
    String description;
    String dateCreation;
    String dateStart;
-   String sateEnd;
+   String dateEnd;
    String statut;
    String priority;
    String remind;
@@ -16,7 +16,7 @@ class Task {
     required this.description,
     required this.dateCreation,
     required this.dateStart,
-    required this.sateEnd,
+    required this.dateEnd,
     required this.statut,
     required this.priority,
     required this.remind,
@@ -30,11 +30,26 @@ class Task {
       description: json["description"], 
       dateCreation: json["dateCreation"], 
       dateStart: json["dateStart"], 
-      sateEnd: json["dateEnd"], 
+      dateEnd: json["dateEnd"], 
       statut: json["statut"], 
       priority: json["priority"], 
       remind: json["rappel"], 
       category: json["category"]
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "taskId": taskId,
+      "title": title,
+      "description": description,
+      "dateCreation": dateCreation,
+      "dateStart": dateStart,
+      "dateEnd": dateEnd,
+      "statut": statut,
+      "priority": priority,
+      "remind": remind,
+      "category": category,
+    };
   }
 }

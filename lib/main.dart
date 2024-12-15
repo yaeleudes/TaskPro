@@ -3,6 +3,7 @@ import 'package:task_pro/constants/task_pro_theme.dart';
 import 'package:task_pro/services/task_service.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
 import 'package:task_pro/widgets/modals/task_pro_modal.dart';
+import 'package:task_pro/widgets/task_list_tile.dart';
 
 import 'models/task.dart';
 import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
@@ -87,43 +88,51 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                TaskProActionButton(
-                    buttonTitle: "Rejoindre TaskPro",
-                    onPressed: () {
-                      print("action");
-                    }),
-                const SizedBox(
-                  height: 10,
-                ),
-                TaskProCommonInput(
-                    controller: emailController, hintText: "Votre e-mail"),
-                const SizedBox(
-                  height: 10,
-                ),
-                TaskProPasswordInput(
-                  controller: passwordController,
-                  hintText: "Votre mot de passe",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TaskProResearchInput(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'You have pushed the button this many times:',
+                  ),
+                  Text(
+                    '$_counter',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  TaskProActionButton(
+                      buttonTitle: "Rejoindre TaskPro",
+                      onPressed: () {
+                        print("action");
+                      }),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TaskProCommonInput(
+                      controller: emailController, hintText: "Votre e-mail"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TaskProPasswordInput(
+                    controller: passwordController,
+                    hintText: "Votre mot de passe",
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TaskProResearchInput(
                     controller: searchController,
-                    hintText: "tâches, catégorie, date et plus")
-              ],
+                    hintText: "tâches, catégorie, date et plus"
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TaskListTile(title: "Faire mes exercices de maths", description: "Je dois faire tous mes devoirs avant le vendredi!",),
+                  TaskListTile(title: "Lire chaque jour une page", description: "",),
+                ],
+              ),
             ),
           ),
         ),
@@ -135,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: _onItemTapped,
         ),
         floatingActionButton: TaskProFloatingButton(onPressed: () async {
-          listeTache = await TaskService.getAllTask();
+          // listeTache = await TaskService.getAllTask();
           for (var task in listeTache) {
             print(task.title);
           }

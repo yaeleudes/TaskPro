@@ -46,13 +46,17 @@ class _AjouterTacheState extends State<AjouterTache> {
     print("Rappel sélectionnée : $value");
   }
 
-  void _onDateSelected(Map<String, dynamic> result) {
-    setState(() {
-      selectedDateData = result;
-      _selectedDay = result['selectedDay'] as DateTime?;
-      _selectedTime = result['selectedTime'] as TimeOfDay?;
-    });
-    print('Données reçues dans AjouterTache : $result');
+  void _onDateSelected(Map<String, dynamic>? result) {
+    if (result != null) {
+      setState(() {
+        selectedDateData = result;
+        _selectedDay = result['selectedDay'] as DateTime?;
+        _selectedTime = result['selectedTime'] as TimeOfDay?;
+      });
+      print('Données reçues dans AjouterTache : $result');
+    } else {
+      print('Aucune donnée reçue.');
+    }
   }
 
   @override
