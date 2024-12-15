@@ -58,66 +58,73 @@ class _AjouterTacheState extends State<AjouterTache> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * .62,
-      child: Form(
-        child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Nouvelle tâche",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const HugeIcon(
-                    icon: HugeIcons.strokeRoundedMultiplicationSign,
-                    color: Colors.black,
-                    size: 24.0,
-                  )
-                ),
-              ],
-            ),
-          ),
-
-          // Champs pour la création d'une tâche
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+    return SingleChildScrollView(
+      child: SizedBox(
+        // height: size.height * .62,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Form(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TaskTitleInput(controller: titleController, hintText: "Titre de la tâche",),
-                const SizedBox(height: 8,),
-                TaskDescription(controller: descriptionController, hintText: "Décrivez votre tâche ici",),
-                const SizedBox(height: 8,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TaskDatePickle(onDateSelected: _onDateSelected,),
-                    TaskRemindPickle(selectedRemind: _selectedRemind, onSelectedRemind: _onSelectedRemind,),
-                    TaskPriorityPickle(priorityValue: _selectedPriority, onSelected: _onSelectedPriority,)
+                    const Text(
+                      "Nouvelle tâche",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const HugeIcon(
+                        icon: HugeIcons.strokeRoundedMultiplicationSign,
+                        color: Colors.black,
+                        size: 24.0,
+                      )
+                    ),
                   ],
                 ),
-                const SizedBox(height: 16,),
-                AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _oonChanged,),
-                const SizedBox(height: 16,),
-                TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){
-                  print("Tache ajoutée");
-                  print('Jour sélectionné : ${_selectedDay?.toIso8601String()}');
-                  print('Heure sélectionnée : ${_selectedTime?.format(context)}');
-                })
-              ],
-            ),
-          )
-        ],
-      )),
+              ),
+                
+              // Champs pour la création d'une tâche
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TaskTitleInput(controller: titleController, hintText: "Titre de la tâche",),
+                    const SizedBox(height: 8,),
+                    TaskDescription(controller: descriptionController, hintText: "Décrivez votre tâche ici",),
+                    const SizedBox(height: 8,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TaskDatePickle(onDateSelected: _onDateSelected,),
+                        TaskRemindPickle(selectedRemind: _selectedRemind, onSelectedRemind: _onSelectedRemind,),
+                        TaskPriorityPickle(priorityValue: _selectedPriority, onSelected: _onSelectedPriority,)
+                      ],
+                    ),
+                    const SizedBox(height: 16,),
+                    AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _oonChanged,),
+                    const SizedBox(height: 16,),
+                    TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){
+                      print("Tache ajoutée");
+                      print('Jour sélectionné : ${_selectedDay?.day}');
+                      print('Jour sélectionné : ${_selectedDay?.month}');
+                      print('Jour sélectionné : ${_selectedDay?.year}');
+                      print('Heure sélectionnée : ${_selectedTime?.format(context)}');
+                    })
+                  ],
+                ),
+              )
+            ],
+          )),
+        ),
+      ),
     );
   }
 }

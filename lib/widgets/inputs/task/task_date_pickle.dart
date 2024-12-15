@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:intl/intl.dart';
 import '../../modals/date_picking.dart';
 
 class TaskDatePickle extends StatefulWidget {
@@ -12,6 +13,7 @@ class TaskDatePickle extends StatefulWidget {
 
 class _TaskDatePickleState extends State<TaskDatePickle> {
   DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   Map<String, dynamic> result = {};
 
   @override
@@ -27,6 +29,12 @@ class _TaskDatePickleState extends State<TaskDatePickle> {
               return const DatePicking();
             });
         if (widget.onDateSelected != null) {
+          print(selectedDate);
+          setState(() {
+            selectedDate = result['selectedDay'];
+            selectedTime = result['selectedTime'];
+          });
+          print(selectedDate);
           widget.onDateSelected!(result);
         }
       },
@@ -53,11 +61,11 @@ class _TaskDatePickleState extends State<TaskDatePickle> {
                   const SizedBox(width: 4),
                   Text(
                     selectedDate != null
-                        ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year} à ${selectedDate!.hour}:${selectedDate!.minute}"
+                        ? "${DateFormat('d MMM', 'fr_FR').format(selectedDate!)} ${selectedTime?.format(context) ?? ""}"
                         : "Date d'échéance",
                     style: TextStyle(
                       color: Colors.black.withOpacity(.7),
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

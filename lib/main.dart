@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
+import 'package:task_pro/services/task_service.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
 import 'package:task_pro/widgets/modals/task_pro_modal.dart';
 
+import 'models/task.dart';
 import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
 import 'widgets/buttons/task_pro_action_button.dart';
 import 'widgets/inputs/task_pro_common_input.dart';
@@ -14,8 +16,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
-    runApp(const MyApp(
-    ));
+    runApp(const MyApp());
   });
 }
 
@@ -58,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
   int _counter = 0;
   int _currentIndex = 0;
+  List<Task> listeTache = [];
 
   void _incrementCounter() {
     setState(() {
@@ -106,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                TaskProCommonInput(controller: emailController, hintText: "Votre e-mail"),
+                TaskProCommonInput(
+                    controller: emailController, hintText: "Votre e-mail"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -131,7 +134,12 @@ class _MyHomePageState extends State<MyHomePage> {
           currentIndex: _currentIndex,
           onTap: _onItemTapped,
         ),
-        floatingActionButton: TaskProFloatingButton(onPressed: () {
+        floatingActionButton: TaskProFloatingButton(onPressed: () async {
+          listeTache = await TaskService.getAllTask();
+          for (var task in listeTache) {
+            print(task.title);
+          }
+          print("list $listeTache");
           TaskProModal.ajouterTache(context);
         }));
   }
