@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
 import 'package:task_pro/services/task_service.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
@@ -6,6 +7,7 @@ import 'package:task_pro/widgets/modals/task_pro_modal.dart';
 import 'package:task_pro/widgets/task_list_tile.dart';
 
 import 'models/task.dart';
+import 'routes/routes.dart';
 import 'widgets/bottomNavbar/task_pro_bottom_navbar.dart';
 import 'widgets/buttons/task_pro_action_button.dart';
 import 'widgets/inputs/task_pro_common_input.dart';
@@ -14,6 +16,8 @@ import 'widgets/inputs/task_pro_research_input.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+final GoRouter _route = Routes.router;
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
@@ -27,11 +31,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: TaskProTheme.light,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: _route,
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       locale: const Locale('fr', 'FR'),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -150,6 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
           }
           print("list $listeTache");
           TaskProModal.ajouterTache(context);
-        }));
+        }
+      )
+    );
   }
 }
