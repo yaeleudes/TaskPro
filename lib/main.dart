@@ -16,7 +16,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
-    runApp(MyApp());
+    runApp(const MyApp());
   });
 }
 
@@ -105,19 +105,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       print("action");
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TaskProCommonInput(
                     controller: emailController, hintText: "Votre e-mail"),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TaskProPasswordInput(
                   controller: passwordController,
                   hintText: "Votre mot de passe",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TaskProResearchInput(
@@ -136,10 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: TaskProFloatingButton(onPressed: () async {
           listeTache = await TaskService.getAllTask();
-          listeTache.forEach((task) {
+          for (var task in listeTache) {
             print(task.title);
-          },);
-          print("list ${listeTache}");
+          }
+          print("list $listeTache");
           TaskProModal.ajouterTache(context);
         }));
   }

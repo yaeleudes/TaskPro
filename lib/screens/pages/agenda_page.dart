@@ -10,6 +10,6 @@ class AgendaPage extends StatefulWidget {
 class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("agenda"),);
+    return const Center(child: Text("agenda"),);
   }
 }
