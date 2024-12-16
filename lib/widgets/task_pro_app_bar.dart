@@ -52,8 +52,3 @@ class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-// HugeIcon(
-//   icon: HugeIcons.strokeRoundedTag01,
-//   color: Colors.black,
-//   size: 24.0,
-// )

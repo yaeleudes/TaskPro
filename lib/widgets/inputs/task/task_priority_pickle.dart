@@ -17,9 +17,9 @@ class _TaskPriorityPickleState extends State<TaskPriorityPickle> {
   Color priorityColor(){
     if(widget.priorityValue == "Faible"){
       return TaskProColor.blue.withOpacity(.7);
-    } else if(widget.priorityValue == "Moyen"){
+    } else if(widget.priorityValue == "Moyenne"){
       return TaskProColor.yellow.withOpacity(.7);
-    } else if(widget.priorityValue == "Élevé"){
+    } else if(widget.priorityValue == "Élevée"){
       return TaskProColor.red.withOpacity(.7);
     }
     return Colors.black.withOpacity(.7);
@@ -51,12 +51,12 @@ class _TaskPriorityPickleState extends State<TaskPriorityPickle> {
                     child: Container(child: Row(children: [Icon(Icons.flag_rounded, color: TaskProColor.blue,), const SizedBox(width: 6,), const Text('Faible'), ],),),
                   ),
                   PopupMenuItem(
-                    value: "Moyen",
-                    child: Container(child: Row(children: [Icon(Icons.flag_rounded, color: TaskProColor.yellow,), const SizedBox(width: 6,), const Text('Moyen'), ],),),
+                    value: "Moyenne",
+                    child: Container(child: Row(children: [Icon(Icons.flag_rounded, color: TaskProColor.yellow,), const SizedBox(width: 6,), const Text('Moyenne'), ],),),
                   ),
                   PopupMenuItem(
-                    value: "Élevé",
-                    child: Container(child: Row(children: [Icon(Icons.flag_rounded, color: TaskProColor.red,), const SizedBox(width: 6,), const Text('Élevé'), ],),),
+                    value: "Élevée",
+                    child: Container(child: Row(children: [Icon(Icons.flag_rounded, color: TaskProColor.red,), const SizedBox(width: 6,), const Text('Élevée'), ],),),
                   ),
                 ],
                 child: Row(
@@ -65,10 +65,10 @@ class _TaskPriorityPickleState extends State<TaskPriorityPickle> {
                     if(widget.priorityValue == "Faible")
                       Icon(Icons.flag_rounded, color: TaskProColor.blue, size: 18.0,)
                     
-                    else if (widget.priorityValue == "Moyen")
+                    else if (widget.priorityValue == "Moyenne")
                       Icon(Icons.flag_rounded, color: TaskProColor.yellow, size: 18.0,)
 
-                    else if (widget.priorityValue == "Élevé")
+                    else if (widget.priorityValue == "Élevée")
                       Icon(Icons.flag_rounded, color: TaskProColor.red, size: 18.0,)
                     
                     else

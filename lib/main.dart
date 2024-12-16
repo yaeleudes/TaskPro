@@ -134,8 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  TaskListTile(title: "Faire mes exercices de maths", description: "Je dois faire tous mes devoirs avant le vendredi!",),
-                  TaskListTile(title: "Lire chaque jour une page", description: "",),
+                  
                 ],
               ),
             ),
