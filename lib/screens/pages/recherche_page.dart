@@ -17,7 +17,6 @@ class _RecherchePageState extends State<RecherchePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -62,6 +61,7 @@ class _RecherchePageState extends State<RecherchePage> {
             Expanded(
               child: ListView.builder(
                 itemCount: tasks.length,
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final task = tasks[index];
                   return TaskListTile(task: task);
