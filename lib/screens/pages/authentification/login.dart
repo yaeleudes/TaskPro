@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: PreferredSize(
+       appBar: const PreferredSize(
          preferredSize: Size.fromHeight(60.0),
          child: AuthAppBar(chemin: '/',),
        ),
@@ -31,14 +31,14 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                const Text(
                   "Connexion",
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
+                const Text(
                   "Entrer votre e-mail et votre mot de pass",
                   style: TextStyle(
                     color: Colors.black,
@@ -46,19 +46,19 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TaskProCommonInput(
                     controller: emailController, hintText: "Votre e-mail"),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TaskProPasswordInput(
                   controller: passwordController,
                   hintText: "Votre mot de passe",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 TaskProActionButton(
@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     context.go("/home");
                   }),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Align(
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       context.go("/forgot_password");
                     },
-                    child: Text(
+                    child: const Text(
                       'Mot de passe oublié ?',
                       textAlign: TextAlign.center,
                       style: TextStyle(

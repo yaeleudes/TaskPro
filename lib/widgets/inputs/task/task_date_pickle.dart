@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:intl/intl.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 import '../../modals/date_picking.dart';
 
 class TaskDatePickle extends StatefulWidget {
@@ -60,7 +60,7 @@ class _TaskDatePickleState extends State<TaskDatePickle> {
                   const SizedBox(width: 4),
                   Text(
                     selectedDate != null
-                        ? "${DateFormat('d MMM', 'fr_FR').format(selectedDate!)} ${selectedTime?.format(context) ?? ""}"
+                        ? "${TaskDateViewmodel.getSelectedDateD(selectedDate)} ${selectedTime?.format(context) ?? ""}"
                         : "Date d'échéance",
                     style: TextStyle(
                       color: Colors.black.withOpacity(.7),

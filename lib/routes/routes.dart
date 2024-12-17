@@ -4,7 +4,7 @@ import 'package:task_pro/screens/home_screen.dart';
 
 class Routes {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-  static final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
+  // static final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -12,7 +12,7 @@ class Routes {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => const HomeScreen(),
       ),
     ],
 

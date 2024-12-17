@@ -46,7 +46,7 @@ class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+      title: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
       actions: _buildActions()
     );
   }

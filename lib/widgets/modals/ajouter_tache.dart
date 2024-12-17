@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 import 'package:task_pro/widgets/buttons/task_pro_action_button.dart';
 import 'package:task_pro/widgets/inputs/task/task_date_pickle.dart';
 import 'package:task_pro/widgets/inputs/task/task_priority_pickle.dart';
@@ -116,11 +117,7 @@ class _AjouterTacheState extends State<AjouterTache> {
                     AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _oonChanged,),
                     const SizedBox(height: 16,),
                     TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){
-                      print("Tache ajoutée");
-                      print('Jour sélectionné : ${_selectedDay?.day}');
-                      print('Jour sélectionné : ${_selectedDay?.month}');
-                      print('Jour sélectionné : ${_selectedDay?.year}');
-                      print('Heure sélectionnée : ${_selectedTime?.format(context)}');
+                      print('Date heure : ${TaskDateViewmodel.formatDate(_selectedDay, _selectedTime?.format(context))}');
                     })
                   ],
                 ),

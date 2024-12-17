@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:task_pro/constants/task_pro_color.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 
 import '../models/task.dart';
 import 'modals/detail_task.dart';
@@ -117,9 +118,9 @@ class TaskListTile extends StatelessWidget {
                         color: Colors.black,
                         size: 14.0,
                       ),
-                      const Text(
-                        "14 Déc. 14:30",
-                        style: TextStyle(fontSize: 12),
+                      Text(
+                        "${TaskDateViewmodel.getSelectedDateD(task.dateEnd)} ${task.dateEnd.hour}:${task.dateEnd.minute}",
+                        style: const TextStyle(fontSize: 12),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -130,7 +131,7 @@ class TaskListTile extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4)),
                         child: Text(
                           task.statut,
-                          style: TextStyle(fontSize: 12, color: Colors.white),
+                          style: const TextStyle(fontSize: 12, color: Colors.white),
                         ),
                       )
                     ],

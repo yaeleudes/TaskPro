@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 
 import '../../constants/task_pro_color.dart';
 import '../../models/task.dart';
@@ -102,6 +103,7 @@ class DetailTask extends StatelessWidget {
                           GestureDetector(
                             onTap: (){
                               print("Tâche terminée!");
+                              print(task.dateEnd);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -156,7 +158,7 @@ class DetailTask extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Expanded(child: Text(task.dateEnd, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                          Expanded(child: Text(TaskDateViewmodel.getSelectedDateD(task.dateEnd), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
                         ],
                       ),
                     ),
@@ -194,7 +196,6 @@ class DetailTask extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2, horizontal: 4),
-                            margin: const EdgeInsets.only(left: 4),
                             decoration: BoxDecoration(
                                 color: statutColor(),
                                 borderRadius: BorderRadius.circular(4)),
