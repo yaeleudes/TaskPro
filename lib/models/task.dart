@@ -284,7 +284,6 @@ class Task {
   //     remind: "1 heure avant",
   //     category: "Travail",
   //   ),
-
   // ];
 
   static List<Task> tasks = [];
@@ -296,5 +295,4 @@ class Task {
   static List<Task> getListByCategory(String value){
     return tasks.where((task) => task.category.toLowerCase().contains(value.toLowerCase())).toList();
   }
-
 }
