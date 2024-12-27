@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:intl/intl.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 import '../../modals/date_picking.dart';
 
 class TaskDatePickle extends StatefulWidget {
-  final Function(Map<String, dynamic>)? onDateSelected;
+  final Function(Map<String, dynamic>?)? onDateSelected;
   const TaskDatePickle({super.key, this.onDateSelected});
 
   @override
@@ -14,27 +14,26 @@ class TaskDatePickle extends StatefulWidget {
 class _TaskDatePickleState extends State<TaskDatePickle> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-  Map<String, dynamic> result = {};
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () async {
-        result = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            enableDrag: true,
-            builder: (BuildContext context) {
-              return const DatePicking();
-            });
-        if (widget.onDateSelected != null) {
-          print(selectedDate);
+        final result = await showModalBottomSheet<Map<String, dynamic>?>(
+          context: context,
+          isScrollControlled: true,
+          enableDrag: true,
+          builder: (BuildContext context) {
+            return const DatePicking();
+          },
+        );
+
+        if (result != null && widget.onDateSelected != null) {
           setState(() {
-            selectedDate = result['selectedDay'];
-            selectedTime = result['selectedTime'];
+            selectedDate = result['selectedDay'] as DateTime?;
+            selectedTime = result['selectedTime'] as TimeOfDay?;
           });
-          print(selectedDate);
           widget.onDateSelected!(result);
         }
       },
@@ -61,7 +60,7 @@ class _TaskDatePickleState extends State<TaskDatePickle> {
                   const SizedBox(width: 4),
                   Text(
                     selectedDate != null
-                        ? "${DateFormat('d MMM', 'fr_FR').format(selectedDate!)} ${selectedTime?.format(context) ?? ""}"
+                        ? "${TaskDateViewmodel.getSelectedDateD(selectedDate)} ${selectedTime?.format(context) ?? ""}"
                         : "Date d'échéance",
                     style: TextStyle(
                       color: Colors.black.withOpacity(.7),

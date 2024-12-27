@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 import 'package:task_pro/widgets/buttons/task_pro_action_button.dart';
 import 'package:task_pro/widgets/inputs/task/task_date_pickle.dart';
 import 'package:task_pro/widgets/inputs/task/task_priority_pickle.dart';
@@ -46,18 +47,22 @@ class _AjouterTacheState extends State<AjouterTache> {
     print("Rappel sélectionnée : $value");
   }
 
-  void _onDateSelected(Map<String, dynamic> result) {
-    setState(() {
-      selectedDateData = result;
-      _selectedDay = result['selectedDay'] as DateTime?;
-      _selectedTime = result['selectedTime'] as TimeOfDay?;
-    });
-    print('Données reçues dans AjouterTache : $result');
+  void _onDateSelected(Map<String, dynamic>? result) {
+    if (result != null) {
+      setState(() {
+        selectedDateData = result;
+        _selectedDay = result['selectedDay'] as DateTime?;
+        _selectedTime = result['selectedTime'] as TimeOfDay?;
+      });
+      print('Données reçues dans AjouterTache : $result');
+    } else {
+      print('Aucune donnée reçue.');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: SizedBox(
         // height: size.height * .62,
@@ -112,11 +117,7 @@ class _AjouterTacheState extends State<AjouterTache> {
                     AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _oonChanged,),
                     const SizedBox(height: 16,),
                     TaskProActionButton(buttonTitle: "Ajouter", onPressed: (){
-                      print("Tache ajoutée");
-                      print('Jour sélectionné : ${_selectedDay?.day}');
-                      print('Jour sélectionné : ${_selectedDay?.month}');
-                      print('Jour sélectionné : ${_selectedDay?.year}');
-                      print('Heure sélectionnée : ${_selectedTime?.format(context)}');
+                      print('Date heure : ${TaskDateViewmodel.formatDate(_selectedDay, _selectedTime?.format(context))}');
                     })
                   ],
                 ),
