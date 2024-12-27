@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:task_pro/models/task.dart';
 import 'package:task_pro/widgets/task_list_tile.dart';
 
@@ -17,7 +18,7 @@ class _TodayPageState extends State<TodayPage> {
   List<Task> setTodayTasks(){
     return Task.tasks.where(
       (task){
-        return ["En cours", "À faire"].contains(task.statut) && task.dateEnd == DateTime.now();
+        return ["En cours", "À faire"].contains(task.statut) && isSameDay(task.dateEnd, DateTime.now());
       }
     ).toList();
   }
@@ -25,12 +26,12 @@ class _TodayPageState extends State<TodayPage> {
   List<Task> setTodayTasksEnd(){
     return Task.tasks.where(
       (task){
-        return task.statut.toLowerCase().contains("Terminé".toLowerCase()) && task.dateEnd == DateTime.now();
+        return task.statut.toLowerCase().contains("Terminé".toLowerCase()) && isSameDay(task.dateEnd, DateTime.now());
       }
     ).toList();
   }
 
-  List<Task> setTodayTasksLate(){
+  List<Task> setTasksLate(){
     return Task.tasks.where(
       (task){
         return ["En cours", "À faire"].contains(task.statut) && task.dateEnd.isBefore(DateTime.now());
@@ -56,33 +57,39 @@ class _TodayPageState extends State<TodayPage> {
     } else {
       return Column(
         children: [
-          ExpansionTile(
-           childrenPadding: const EdgeInsets.only(bottom: 8, left: 10, right: 10),
-           shape: Border(bottom: BorderSide(color: TaskProColor.third)),
-           collapsedShape: Border(bottom: BorderSide(color: TaskProColor.third)),
-           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-               const Text("En retard"),
-               TextButton(onPressed: (){}, child: Text("Reporter"))
-             ],
-           ),
-           children: setTodayTasksLate().map((task) {
-             return TaskListTile(task: task);
-           }).toList(),
-          ),
-
-          ExpansionTile(
-            showTrailingIcon: false,
-            childrenPadding: const EdgeInsets.only(bottom: 8, left: 10, right: 10),
-            shape: Border(bottom: BorderSide(color: TaskProColor.third)),
-            collapsedShape: Border(bottom: BorderSide(color: TaskProColor.third)),
-            title: Text(DateFormat('dd MMM yyyy - EEEE', 'fr_FR').format(DateTime.now())),
-            children: setTodayTasks().map((task) {
-              return TaskListTile(task: task);
-            }).toList(),
-          ),
-            
+          Expanded(
+            child: ListView(
+              children: [
+                if (setTasksLate().isNotEmpty)
+                  ExpansionTile(
+                   childrenPadding: const EdgeInsets.only(bottom: 8, left: 10, right: 10),
+                   shape: Border(bottom: BorderSide(color: TaskProColor.third)),
+                   collapsedShape: Border(bottom: BorderSide(color: TaskProColor.third)),
+                   title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       const Text("En retard"),
+                       TextButton(onPressed: (){}, child: Text("Reporter"))
+                     ],
+                   ),
+                   children: setTasksLate().map((task) {
+                     return TaskListTile(task: task);
+                   }).toList(),
+                  ),
+                  
+                ExpansionTile(
+                  showTrailingIcon: false,
+                  childrenPadding: const EdgeInsets.only(bottom: 8, left: 10, right: 10),
+                  shape: Border(bottom: BorderSide(color: TaskProColor.third)),
+                  collapsedShape: Border(bottom: BorderSide(color: TaskProColor.third)),
+                  title: Text(DateFormat('dd MMM yyyy - EEEE', 'fr_FR').format(DateTime.now())),
+                  children: setTodayTasks().map((task) {
+                    return TaskListTile(task: task);
+                  }).toList(),
+                ),
+              ],
+            ),
+          ), 
         ],
       );
     }

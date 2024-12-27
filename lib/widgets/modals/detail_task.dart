@@ -4,12 +4,23 @@ import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 
 import '../../constants/task_pro_color.dart';
 import '../../models/task.dart';
+import 'menu.dart';
 
 class DetailTask extends StatelessWidget {
   final Task task;
   const DetailTask({super.key, required this.task});
 
   Color statutColor() {
+    if (task.statut == "À faire") {
+      return TaskProColor.red.withOpacity(.3);
+    } else if (task.statut == "En cours") {
+      return TaskProColor.yellow.withOpacity(.3);
+    } else {
+      return TaskProColor.green.withOpacity(.3);
+    }
+  }
+
+  Color statutTextColor() {
     if (task.statut == "À faire") {
       return TaskProColor.red;
     } else if (task.statut == "En cours") {
@@ -45,6 +56,17 @@ class DetailTask extends StatelessWidget {
     }
   }
 
+  void showMenu(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: true,
+        builder: (BuildContext context) {
+          return Menu(task: task);
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,7 +85,7 @@ class DetailTask extends StatelessWidget {
                       children: [
                         Text(
                           task.category,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(
                           width: 4,
@@ -76,7 +98,7 @@ class DetailTask extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        
+                        showMenu(context);
                       },
                       icon: const HugeIcon(
                         icon: HugeIcons.strokeRoundedMoreVertical,
@@ -104,15 +126,16 @@ class DetailTask extends StatelessWidget {
                             onTap: (){
                               print("Tâche terminée!");
                               print(task.dateEnd);
+                              Task.tasks.remove(task);
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: priorityColor().withOpacity(.2),
+                                color: task.statut != "Terminé"? priorityColor().withOpacity(.2) : TaskProColor.green.withOpacity(.2),
                                 borderRadius: BorderRadius.circular(100)
                               ),
                               child: HugeIcon(
                                 icon: HugeIcons.strokeRoundedCircle,
-                                color: priorityColor(),
+                                color: task.statut != "Terminé"? priorityColor() : TaskProColor.green,
                                 size: 24.0,
                               ),
                             ),
@@ -122,7 +145,7 @@ class DetailTask extends StatelessWidget {
                           ),
                           Text(
                             task.title, 
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -141,7 +164,7 @@ class DetailTask extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Expanded(child: Text(task.description, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                          Expanded(child: Text(task.description, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300),)),
                         ],
                       ),
                     ),
@@ -158,7 +181,7 @@ class DetailTask extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Expanded(child: Text(TaskDateViewmodel.getSelectedDateD(task.dateEnd), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                          Expanded(child: Text(TaskDateViewmodel.getSelectedDateD(task.dateEnd), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),)),
                         ],
                       ),
                     ),
@@ -168,15 +191,10 @@ class DetailTask extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(Icons.flag_rounded, color: priorityColor(), size: 20,),
-                          // HugeIcon(
-                          //   icon: HugeIcons.strokeRoundedFlag02,
-                          //   color: priorityColor(),
-                          //   size: 20.0,
-                          // ),
                           const SizedBox(
                             width: 8,
                           ),
-                          Expanded(child: Text(task.priority, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                          Expanded(child: Text(task.priority, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),)),
                         ],
                       ),
                     ),
@@ -201,7 +219,7 @@ class DetailTask extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(4)),
                             child: Text(
                               task.statut,
-                              style: const TextStyle(fontSize: 14, color: Colors.white),
+                              style: TextStyle(fontSize: 14, color: statutTextColor(), fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
@@ -220,7 +238,7 @@ class DetailTask extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Expanded(child: Text(task.remind, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),)),
+                          Expanded(child: Text(task.remind, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),)),
                         ],
                       ),
                     ),

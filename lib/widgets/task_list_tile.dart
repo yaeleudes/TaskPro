@@ -12,6 +12,16 @@ class TaskListTile extends StatelessWidget {
 
   Color statutColor() {
     if (task.statut == "À faire") {
+      return TaskProColor.red.withOpacity(.4);
+    } else if (task.statut == "En cours") {
+      return TaskProColor.yellow.withOpacity(.4);
+    } else {
+      return TaskProColor.green.withOpacity(.4);
+    }
+  }
+
+  Color statutTextColor() {
+    if (task.statut == "À faire") {
       return TaskProColor.red;
     } else if (task.statut == "En cours") {
       return TaskProColor.yellow;
@@ -19,6 +29,7 @@ class TaskListTile extends StatelessWidget {
       return TaskProColor.green;
     }
   }
+  
 
   String iconCategory() {
     if (task.category == "Personnel") {
@@ -34,7 +45,7 @@ class TaskListTile extends StatelessWidget {
     }
   }
 
-  void showDetailTask(BuildContext context, Task tastk) {
+  void showDetailTask(BuildContext context, Task task) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -74,16 +85,16 @@ class TaskListTile extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: (){
-                print("Tâche terminée!");
+                task.changeStatusToEnd();
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: priorityColor().withOpacity(.2),
+                  color: task.statut != "Terminé"? priorityColor().withOpacity(.2) : TaskProColor.green.withOpacity(.2),
                   borderRadius: BorderRadius.circular(100)
                 ),
                 child: HugeIcon(
                   icon: HugeIcons.strokeRoundedCircle,
-                  color: priorityColor(),
+                  color: task.statut != "Terminé"? priorityColor() : TaskProColor.green,
                   size: 24.0,
                 ),
               ),
@@ -104,7 +115,7 @@ class TaskListTile extends StatelessWidget {
               Text(
                 task.description,
                 style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
               ),
             Container(
               margin: const EdgeInsets.only(top: 4),
@@ -120,7 +131,7 @@ class TaskListTile extends StatelessWidget {
                       ),
                       Text(
                         "${TaskDateViewmodel.getSelectedDateD(task.dateEnd)} ${task.dateEnd.hour}:${task.dateEnd.minute}",
-                        style: const TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -131,7 +142,7 @@ class TaskListTile extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4)),
                         child: Text(
                           task.statut,
-                          style: const TextStyle(fontSize: 12, color: Colors.white),
+                          style: TextStyle(fontSize: 14, color: statutTextColor(), fontWeight: FontWeight.bold),
                         ),
                       )
                     ],
@@ -140,7 +151,7 @@ class TaskListTile extends StatelessWidget {
                     children: [
                       Text(
                         task.category,
-                        style: const TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       const SizedBox(
                         width: 4,
