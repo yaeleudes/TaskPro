@@ -1,9 +1,0 @@
-# Ensure consistent LF for text files
-* text=auto
-
-# Handle specific file types
-*.cc text eol=lf
-*.h text eol=lf
-*.cmake text eol=lf
-*.swift text eol=lf
-*.lock text eol=lf
