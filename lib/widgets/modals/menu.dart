@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
+import 'package:task_pro/widgets/modals/modifier_tache.dart';
 
 import '../../constants/task_pro_color.dart';
 import '../../models/task.dart';
@@ -8,6 +9,16 @@ import '../../models/task.dart';
 class Menu extends StatelessWidget {
   final Task task;
   const Menu({super.key, required this.task});
+
+  static Future modifierTache(BuildContext context, Task task) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return ModifierTache(task: task);
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +32,10 @@ class Menu extends StatelessWidget {
               Text("Ajouté le ${DateFormat('dd MMM yyyy - EEEE', 'fr_FR').format(task.dateCreation)}", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300),),
               Divider(color: Colors.grey.shade200,),
               ListTile(
-                onTap: (){},
+                onTap: (){
+                  Navigator.pop(context);
+                  modifierTache(context, task);
+                },
                 leading: const HugeIcon(
                   icon: HugeIcons.strokeRoundedPencilEdit01,
                   color: Colors.black,
