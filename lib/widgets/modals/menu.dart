@@ -25,7 +25,7 @@ class Menu extends StatelessWidget {
     return SingleChildScrollView(
       child: SizedBox(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

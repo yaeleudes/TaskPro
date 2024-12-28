@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
 import 'routes/routes.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-final GoRouter _route = Routes.router;
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
@@ -22,10 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      routerConfig: Routes.router,
+      title: 'Task Pro',
       theme: TaskProTheme.light,
-      routerConfig: _route,
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       locale: const Locale('fr', 'FR'),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
