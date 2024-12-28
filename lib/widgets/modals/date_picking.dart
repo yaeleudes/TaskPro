@@ -16,7 +16,7 @@ class _DatePickingState extends State<DatePicking> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay = DateTime.now(); 
-  TimeOfDay? _selectedTime = null;
+  TimeOfDay? _selectedTime;
   
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {

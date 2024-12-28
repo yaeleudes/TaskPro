@@ -60,7 +60,7 @@ class _TaskRemindPickleState extends State<TaskRemindPickle> {
                       widget.selectedRemind!,
                       style: TextStyle(
                           color: Colors.black.withOpacity(.7),
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500),
                     )
                   ],

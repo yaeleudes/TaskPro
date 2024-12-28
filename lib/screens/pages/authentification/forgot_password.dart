@@ -30,7 +30,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 "Mot de passe oublié",
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -38,7 +38,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 "Entrer votre e-mail",
                 style: TextStyle(
                   color: Colors.black,
@@ -46,12 +46,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TaskProCommonInput(
                   controller: emailController, hintText: "Votre e-mail"),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               TaskProActionButton(

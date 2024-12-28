@@ -31,14 +31,14 @@ class _RegisterState extends State<Register> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 "Inscription",
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 "Entrer votre e-mail et votre mot de pass",
                 style: TextStyle(
                   color: Colors.black,
@@ -46,19 +46,19 @@ class _RegisterState extends State<Register> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TaskProCommonInput(
                   controller: emailController, hintText: "Votre e-mail"),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               TaskProPasswordInput(
                 controller: passwordController,
                 hintText: "Votre mot de passe",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               TaskProActionButton(

@@ -37,7 +37,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -45,7 +45,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     "assets/logos/logo.png",
                     height: 70,
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   Text(
                     "TaskPro",
                     style: TextStyle(
@@ -56,12 +56,12 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               CarouselSlider(
                 options: CarouselOptions(
                   height: 400,
                   autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 4),
+                  autoPlayInterval: const Duration(seconds: 4),
                   enlargeCenterPage: true,
                   viewportFraction: 0.8,
                 ),
@@ -75,10 +75,10 @@ class _WelcomePageState extends State<WelcomePage> {
                             height: 230,
                             width: 500,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             item['text']!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Roboto',
@@ -91,13 +91,13 @@ class _WelcomePageState extends State<WelcomePage> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               TaskProActionButton(
                   buttonTitle: "Rejoindre TaskPro",
                   onPressed: () {
                     context.go("/register");
                   }),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TaskProActionButton(

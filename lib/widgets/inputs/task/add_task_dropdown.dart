@@ -21,9 +21,11 @@ class AddTaskDropdown extends StatelessWidget {
       child: DropdownButton(
         value: dropDownValue,
         items: [
-          DropdownMenuItem(child: Container(child: Row(children: [Text('Education'), SizedBox(width: 4,),Image.asset("assets/icons/education.png", width: 22,)],),), value: 'Education',),
-          DropdownMenuItem(child: Container(child: Row(children: [Text('Perso'), SizedBox(width: 4,),Image.asset("assets/icons/perso.png", width: 22,)],),), value: 'Person',),
-          DropdownMenuItem(child: Container(child: Row(children: [Text('Travail'), SizedBox(width: 4,),Image.asset("assets/icons/travail.png", width: 22,)],),), value: 'Travail',),
+          DropdownMenuItem(value: 'Education',child: Container(child: Row(children: [const Text('Education'), const SizedBox(width: 4,),Image.asset("assets/icons/education.png", width: 22,)],),),),
+          DropdownMenuItem(value: 'Personnel',child: Container(child: Row(children: [const Text('Personnel'), const SizedBox(width: 4,),Image.asset("assets/icons/perso.png", width: 22,)],),),),
+          DropdownMenuItem(value: 'Travail',child: Container(child: Row(children: [const Text('Travail'), const SizedBox(width: 4,),Image.asset("assets/icons/travail.png", width: 22,)],),),),
+          DropdownMenuItem(value: 'Santé',child: Container(child: Row(children: [const Text('Santé'), const SizedBox(width: 4,),Image.asset("assets/icons/sante.png", width: 22,)],),),),
+          DropdownMenuItem(value: 'Autre',child: Container(child: Row(children: [const Text('Autre'), const SizedBox(width: 4,),Image.asset("assets/icons/plus.png", width: 22,)],),),),
         ],
         onChanged: onChanged,
         isExpanded: true,
@@ -32,7 +34,7 @@ class AddTaskDropdown extends StatelessWidget {
           color: TaskProColor.primary,
           size: 24.0,
         ),
-        hint: Text("Sélectionnez une catégorie"),
+        hint: const Text("Sélectionnez une catégorie"),
         style: const TextStyle(color: Colors.black),
         underline: Container(color: Colors.white,),
       ),
