@@ -297,7 +297,7 @@ class Task {
   }
 
   void changeStatusToEnd(){
-    this.statut = "Terminé";
+    statut = "Terminé";
     tasks.remove(this);
     print("Terminé");
   }

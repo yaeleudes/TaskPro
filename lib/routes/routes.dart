@@ -17,23 +17,23 @@ class Routes {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => WelcomePage(),
+        builder: (context, state) => const WelcomePage(),
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => Login(),
+        builder: (context, state) => const Login(),
       ),
       GoRoute(
         path: '/register',
-        builder: (context, state) => Register(),
+        builder: (context, state) => const Register(),
       ),
       GoRoute(
         path: '/forgot_password',
-        builder: (context, state) => ForgotPassword(),
+        builder: (context, state) => const ForgotPassword(),
       ),
     ],
 

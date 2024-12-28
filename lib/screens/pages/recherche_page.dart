@@ -75,7 +75,7 @@ class _RecherchePageState extends State<RecherchePage> {
               ),
             )
           else
-            Expanded(
+            const Expanded(
               child: Center(
                 child: Text("Aucune Tâche"),
               ),

@@ -69,7 +69,7 @@ class _TodayPageState extends State<TodayPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        const Text("En retard"),
-                       TextButton(onPressed: (){}, child: Text("Reporter"))
+                       TextButton(onPressed: (){}, child: const Text("Reporter"))
                      ],
                    ),
                    children: setTasksLate().map((task) {

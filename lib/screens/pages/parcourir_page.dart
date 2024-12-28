@@ -40,27 +40,27 @@ class _ParcourirPageState extends State<ParcourirPage> {
               ListTile(
                 onTap: (){},
                 title: Row(children: [const Text('Personnel'), const SizedBox(width: 4,),Image.asset("assets/icons/perso.png", width: 20,)],),
-                trailing:  Text("${Task.getListByCategory('Personnel').length}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                trailing:  Text("${Task.getListByCategory('Personnel').length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
               ),
               ListTile(
                 onTap: (){},
                 title: Row(children: [const Text('Education'), const SizedBox(width: 4,),Image.asset("assets/icons/education.png", width: 20,)],),
-                trailing: Text("${Task.getListByCategory('Education').length}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                trailing: Text("${Task.getListByCategory('Education').length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
               ),
               ListTile(
                 onTap: (){},
                 title: Row(children: [const Text('Travail'), const SizedBox(width: 4,),Image.asset("assets/icons/travail.png", width: 20,)],),
-                trailing: Text("${Task.getListByCategory('Travail').length}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                trailing: Text("${Task.getListByCategory('Travail').length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
               ),
               ListTile(
                 onTap: (){},
                 title: Row(children: [const Text('Santé'), const SizedBox(width: 4,),Image.asset("assets/icons/sante.png", width: 20,)],),
-                trailing: Text("${Task.getListByCategory('Santé').length}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                trailing: Text("${Task.getListByCategory('Santé').length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
               ),
               ListTile(
                 onTap: (){},
                 title: Row(children: [const Text('Autre'), const SizedBox(width: 4,),Image.asset("assets/icons/plus.png", width: 20,)],),
-                trailing: Text("${Task.getListByCategory('Autre').length}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                trailing: Text("${Task.getListByCategory('Autre').length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
               )
             ],
           )
