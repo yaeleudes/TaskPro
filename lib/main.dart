@@ -22,10 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      routerConfig: Routes.router,
+      title: 'Task Pro',
       theme: TaskProTheme.light,
-      routerConfig: _route,
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       locale: const Locale('fr', 'FR'),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
