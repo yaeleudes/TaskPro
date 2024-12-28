@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:task_pro/constants/task_pro_theme.dart';
 import 'routes/routes.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-final GoRouter _route = Routes.router;
 
 void main() {
   initializeDateFormatting('fr_FR', null).then((_) {
