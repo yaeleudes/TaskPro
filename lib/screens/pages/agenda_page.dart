@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_pro/widgets/task_list_tile.dart';
 
 import '../../constants/task_pro_color.dart';
-import '../../models/task.dart';
+import '../../viewmodels/task_view_model.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({super.key});
@@ -45,10 +46,22 @@ class _AgendaPageState extends State<AgendaPage> {
     }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+      taskViewModel.fetchTasks();
+    });
+  }
+
   
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+     final taskViewModel = Provider.of<TaskViewModel>(context);
+
     return Column(
       children: [
         Container(
@@ -118,7 +131,7 @@ class _AgendaPageState extends State<AgendaPage> {
             itemBuilder: (context, index) {
               final date = DateTime.now().add(Duration(days: index));
 
-              final tasksForDate = Task.tasks.where((task) {
+              final tasksForDate = taskViewModel.tasks.where((task) {
                 final taskDate = task.dateEnd;
                 return isSameDay(taskDate, date);
               }).toList();

@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 class Task {
-   int taskId;
-   String title;
-   String description;
-   DateTime dateCreation;
-   DateTime dateStart;
-   DateTime dateEnd;
-   String statut;
-   String priority;
-   String remind;
-   String category;
+  int taskId;
+  String title;
+  String description;
+  DateTime dateCreation;
+  DateTime dateStart;
+  DateTime dateEnd;
+  String statut;
+  String priority;
+  String remind;
+  String category;
 
   Task({
     required this.taskId,
@@ -20,21 +22,39 @@ class Task {
     required this.statut,
     required this.priority,
     required this.remind,
-    required this.category
+    required this.category,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-      taskId: json["taskId"], 
-      title: json["title"], 
-      description: json["description"], 
-      dateCreation: json["dateCreation"], 
-      dateStart: json["dateStart"], 
-      dateEnd: json["dateEnd"], 
-      statut: json["statut"], 
-      priority: json["priority"], 
-      remind: json["rappel"], 
-      category: json["category"]
+      taskId: json["taskId"],
+      title: utf8.decode(json["title"].runes.toList()),
+      description: utf8.decode(json["description"].runes.toList()),
+      dateCreation: DateTime(
+        json["dateCreation"][0],
+        json["dateCreation"][1],
+        json["dateCreation"][2],
+        json["dateCreation"][3],
+        json["dateCreation"][4],
+      ),
+      dateStart: DateTime(
+        json["dateStart"][0],
+        json["dateStart"][1],
+        json["dateStart"][2],
+        json["dateStart"][3],
+        json["dateStart"][4],
+      ),
+      dateEnd: DateTime(
+        json["dateEnd"][0],
+        json["dateEnd"][1],
+        json["dateEnd"][2],
+        json["dateEnd"][3],
+        json["dateEnd"][4],
+      ),
+      statut: utf8.decode(json["statut"].runes.toList()),
+      priority: utf8.decode(json["priority"].runes.toList()),
+      remind: utf8.decode(json["rappel"].runes.toList()),
+      category: utf8.decode(json["category"].runes.toList()),
     );
   }
 
@@ -43,12 +63,30 @@ class Task {
       "taskId": taskId,
       "title": title,
       "description": description,
-      "dateCreation": dateCreation,
-      "dateStart": dateStart,
-      "dateEnd": dateEnd,
+      "dateCreation": [
+        dateCreation.year,
+        dateCreation.month,
+        dateCreation.day,
+        dateCreation.hour,
+        dateCreation.minute,
+      ],
+      "dateStart": [
+        dateStart.year,
+        dateStart.month,
+        dateStart.day,
+        dateStart.hour,
+        dateStart.minute,
+      ],
+      "dateEnd": [
+        dateEnd.year,
+        dateEnd.month,
+        dateEnd.day,
+        dateEnd.hour,
+        dateEnd.minute,
+      ],
       "statut": statut,
       "priority": priority,
-      "remind": remind,
+      "rappel": remind,
       "category": category,
     };
   }
@@ -218,7 +256,7 @@ class Task {
       description: "Créer des diapositives pour la présentation du projet.",
       dateCreation: DateTime.parse("2024-12-29T20:00:00Z"),
       dateStart: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateEnd: DateTime.parse("2024-12-29T20:00:00Z"),
+      dateEnd: DateTime.parse("2025-01-08T20:00:00Z"),
       statut: "À faire",
       priority: "Moyenne",
       remind: "1 jour avant",
@@ -230,7 +268,7 @@ class Task {
       description: "Discuter des exigences du projet avec le client.",
       dateCreation: DateTime.parse("2024-12-29T20:00:00Z"),
       dateStart: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateEnd: DateTime.parse("2024-12-29T20:00:00Z"),
+      dateEnd: DateTime.parse("2025-01-07T20:00:00Z"),
       statut: "En cours",
       priority: "Élevée",
       remind: "1 heure avant",
@@ -265,8 +303,8 @@ class Task {
       title: "Rédaction de l'article",
       description: "Écrire un article pour le blog de l'entreprise.",
       dateCreation: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateStart: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateEnd: DateTime.parse("2024-12-29T20:00:00Z"),
+      dateStart: DateTime.parse("2025-01-10T20:00:00Z"),
+      dateEnd: DateTime.parse("2025-01-10T20:00:00Z"),
       statut: "À faire",
       priority: "Moyenne",
       remind: "1 jour avant",
@@ -277,8 +315,8 @@ class Task {
       title: "Réunion de planification",
       description: "Planifier les tâches pour le prochain trimestre.",
       dateCreation: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateStart: DateTime.parse("2024-12-29T20:00:00Z"),
-      dateEnd: DateTime.parse("2024-12-29T20:00:00Z"),
+      dateStart: DateTime.parse("2025-01-06T20:00:00Z"),
+      dateEnd: DateTime.parse("2025-01-06T20:00:00Z"),
       statut: "En cours",
       priority: "Élevée",
       remind: "1 heure avant",

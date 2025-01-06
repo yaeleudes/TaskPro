@@ -28,84 +28,103 @@ class _WelcomePageState extends State<WelcomePage> {
     },
   ];
 
+  // Future<void> _checkToken() async {
+  //   String? token = await LocalStorage.getToken();
+  //   if (token != null) {
+  //     Navigator.pushReplacementNamed(context, '/home');
+  //   } else {
+  //     Navigator.pushReplacementNamed(context, '/');
+  //   }
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // _checkToken();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/logos/logo.png",
-                    height: 70,
-                  ),
-                  const SizedBox(width: 15),
-                  Text(
-                    "TaskPro",
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                      color: TaskProColor.primary,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/logos/logo.png",
+                      height: 70,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 400,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 4),
-                  enlargeCenterPage: true,
-                  viewportFraction: 0.8,
+                    const SizedBox(width: 15),
+                    Text(
+                      "TaskPro",
+                      style: TextStyle(
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                        color: TaskProColor.primary,
+                      ),
+                    ),
+                  ],
                 ),
-                items: carouselItems.map((item) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Column(
-                        children: [
-                          Image.asset(
-                            item['image']!,
-                            height: 230,
-                            width: 500,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            item['text']!,
-                            style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Roboto',
+                const SizedBox(height: 40),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 400,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 4),
+                    enlargeCenterPage: true,
+                    viewportFraction: 0.8,
+                  ),
+                  items: carouselItems.map((item) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Column(
+                          children: [
+                            Image.asset(
+                              item['image']!,
+                              height: 230,
+                              width: 500,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 100),
-              TaskProActionButton(
-                  buttonTitle: "Rejoindre TaskPro",
-                  onPressed: () {
-                    context.go("/register");
-                  }),
-              const SizedBox(
-                height: 40,
-              ),
-              TaskProActionButton(
-                  buttonTitle: "Se connecter",
-                  onPressed: () {
-                    context.go("/login");
-                  }),
-            ],
+                            const SizedBox(height: 10),
+                            Text(
+                              item['text']!,
+                              style: const TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Roboto',
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 100),
+                TaskProActionButton(
+                    buttonTitle: "Rejoindre TaskPro",
+                    onPressed: () {
+                      context.go("/register");
+                    }),
+                const SizedBox(
+                  height: 10,
+                ),
+                TaskProActionButton(
+                    buttonTitle: "Se connecter",
+                    onPressed: () {
+                      context.go("/login");
+                    }),
+              ],
+            ),
           ),
         ),
       ),

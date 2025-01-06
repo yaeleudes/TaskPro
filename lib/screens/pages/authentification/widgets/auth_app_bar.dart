@@ -15,14 +15,11 @@ class AuthAppBar extends StatelessWidget {
         },
         icon: const Icon(
           Icons.arrow_back,
-          color: Color(0xFF3C3D3F),
+          color: Color(0xFF3C3D3F), size: 24,
         ),
         label: const Text(
           "Retour",
-          style: TextStyle(
-            fontSize: 15,
-            color: Color(0xFF3C3D3F),
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
         ),
       ),
     );

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:task_pro/constants/task_pro_color.dart';
 import 'package:task_pro/models/task.dart';
+
+import '../../viewmodels/task_view_model.dart';
 
 class ParcourirPage extends StatefulWidget {
   const ParcourirPage({super.key});
@@ -10,10 +13,20 @@ class ParcourirPage extends StatefulWidget {
 }
 
 class _ParcourirPageState extends State<ParcourirPage> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+      taskViewModel.fetchTasks();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+     final taskViewModel = Provider.of<TaskViewModel>(context);
+     
     return SingleChildScrollView(
       child: Column(
         children: [
