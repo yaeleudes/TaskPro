@@ -3,9 +3,8 @@ import 'package:task_pro/constants/task_pro_color.dart';
 
 class TaskProActionButton extends StatelessWidget {
   final String buttonTitle;
-  final VoidCallback onPressed;
-  const TaskProActionButton(
-      {super.key, required this.buttonTitle, required this.onPressed});
+  final VoidCallback? onPressed;
+  const TaskProActionButton({super.key, required this.buttonTitle, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

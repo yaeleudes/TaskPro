@@ -16,11 +16,13 @@ class TaskService {
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);
         List<Task> tasks = jsonResponse.map((task) => Task.fromJson(task)).toList();
+        print(response.statusCode);
         return tasks;
       } else {
         throw Exception('Failed to load tasks');
       }
     } catch (e) {
+      print(e);
       throw Exception('Failed to connect to server');
     }
   }
@@ -28,11 +30,11 @@ class TaskService {
   // Ajouter une tâche
   static Future<bool> addTask(Map<String, dynamic> body) async {
     try {
-      final url = Uri.parse("$baseUrl/tasks");
+      final url = Uri.parse("$baseUrl/users/add-task");
       final token = await LocalStorage.getToken();
       final response = await http.post(url, body: jsonEncode(body), headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'});
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return true;
       } else {
         print('Erreur d\'ajout de tâche : ${response.statusCode}');

@@ -15,7 +15,7 @@ class TaskDateViewmodel {
     return DateFormat('d MMM', 'fr_FR').format(selectedDate);
   }
 
-  static String formatDate(DateTime? selectedDate, String? selectedTime) {
+  static String formatDate(DateTime? selectedDate, [String? selectedTime]) {
     if (selectedTime == null) {
       return selectedDate!.toIso8601String();
     }

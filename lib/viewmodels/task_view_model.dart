@@ -15,8 +15,10 @@ class TaskViewModel extends ChangeNotifier {
 
     try {
       _tasks = await TaskService.getTasks();
+      print(_tasks.length);
     } catch (e) {
-      // Handle error
+      print("Hello");
+      print(e);
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -36,7 +38,6 @@ class TaskViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   Future<bool> addTask(Map<String, dynamic> body) async {
     _isLoading = true;

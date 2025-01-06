@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_pro/models/task.dart';
+import 'package:task_pro/viewmodels/user_view_model.dart';
 import 'package:task_pro/widgets/task_list_tile.dart';
 
 import '../../constants/task_pro_color.dart';
@@ -49,7 +50,9 @@ class _TodayPageState extends State<TodayPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+      final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       taskViewModel.fetchTasks();
+      userViewModel.getUser();
     });
   }
   
@@ -57,19 +60,20 @@ class _TodayPageState extends State<TodayPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final taskViewModel = Provider.of<TaskViewModel>(context);
+    final userViewModel = Provider.of<UserViewModel>(context);
 
     if (taskViewModel.isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
-    if(setTodayTasks(taskViewModel.tasks).isEmpty && Task.tasks.isEmpty){
+    if(setTodayTasks(taskViewModel.tasks).isEmpty){
       return Container(
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset("assets/images/home_image.png", width: size.width * .65,),
-            const Text("Bonjour, yaelahodan", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+            Text("Bonjour, ${userViewModel.user?.nom}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
             Text("Aujourd'hui vous avez archévé ${setTodayTasksEnd(taskViewModel.tasks).length} tâche(s)"),
           ],
         ),

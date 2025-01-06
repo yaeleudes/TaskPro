@@ -9,7 +9,15 @@ class TaskProModal {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return const AjouterTache();
+        return Padding(
+           padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: const AjouterTache(),
+          ),
+        );
       }
     );
   }

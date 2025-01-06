@@ -86,8 +86,7 @@ class _ModifierTacheState extends State<ModifierTache> {
                     const SizedBox(
                       height: 16,
                     ),
-                    TaskProActionButton(
-                        buttonTitle: "Enregistrer", onPressed: () {})
+                    TaskProActionButton(buttonTitle: "Enregistrer", onPressed: () {}, )
                   ],
                 ),
               )

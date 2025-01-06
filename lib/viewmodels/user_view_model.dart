@@ -54,4 +54,18 @@ class UserViewModel extends ChangeNotifier {
     _user = null;
     notifyListeners();
   }
+
+  void getUser() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _user = await LocalStorage.getUser();
+    } catch (e) {
+      
+    }finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }
