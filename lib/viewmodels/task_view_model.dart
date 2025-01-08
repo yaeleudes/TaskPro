@@ -5,10 +5,18 @@ import '../services/task_service.dart';
 
 class TaskViewModel extends ChangeNotifier {
   List<Task> _tasks = [];
+  List<Task> _categoryTasks = [];
   bool _isLoading = false;
+  int _endedTasks = 0;
+  int _todoTask = 0;
+  int _notDoneTask = 0;
 
   List<Task> get tasks => _tasks;
+  List<Task> get categoryTasks => _categoryTasks;
   bool get isLoading => _isLoading;
+  int get endedTask => _endedTasks;
+  int get todoTask => _todoTask;
+  int get notDoneTask => _notDoneTask;
 
   Future<void> fetchTasks() async {
     _isLoading = true;
@@ -19,6 +27,23 @@ class TaskViewModel extends ChangeNotifier {
       print(_tasks.length);
     } catch (e) {
       print(e);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getCountTask() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _tasks = await TaskService.getTasks();
+      _endedTasks = _tasks.where((task) => ["Terminé"].contains(task.statut)).toList().length;
+      _todoTask = _tasks.where((task) => ["À faire"].contains(task.statut)).toList().length;
+      _notDoneTask = _tasks.where((task) => ["En cours"].contains(task.statut)).toList().length;
+    } catch (e) {
+      
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -115,6 +140,31 @@ class TaskViewModel extends ChangeNotifier {
     } catch (e) {
       // Handle error
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  List<Task> getListByCategory(String value) {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      return _tasks.where((task) => task.category.toLowerCase().contains(value.toLowerCase())).toList();
+    } catch (e) {
+      return [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+  List<Task> getListByStatus(String value) {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      return _tasks.where((task) => task.statut.toLowerCase().contains(value.toLowerCase())).toList();
+    } catch (e) {
+      return [];
     } finally {
       _isLoading = false;
       notifyListeners();

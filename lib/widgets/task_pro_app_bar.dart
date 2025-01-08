@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
+
+import '../viewmodels/user_view_model.dart';
 
 class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -45,8 +48,10 @@ class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final excludedTitles = ["Aujourd'hui", "Prochainement", "", "Rechercher"];
+    final userViewModel = Provider.of<UserViewModel>(context);
     return AppBar(
-      title: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+      title: Text(excludedTitles.contains(title)? title: userViewModel.user?.nom ?? "myPsoeudo", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
       actions: _buildActions()
     );
   }
