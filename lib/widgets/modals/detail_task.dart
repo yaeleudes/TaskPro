@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
 
 import '../../constants/task_pro_color.dart';
 import '../../models/task.dart';
+import '../../viewmodels/task_view_model.dart';
 import 'menu.dart';
 
 class DetailTask extends StatelessWidget {
@@ -69,6 +71,8 @@ class DetailTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskViewModel = Provider.of<TaskViewModel>(context); 
+
     return SingleChildScrollView(
       child: SizedBox(
         child: Padding(
@@ -98,6 +102,7 @@ class DetailTask extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
+                        Navigator.of(context).pop();
                         showMenu(context);
                       },
                       icon: const HugeIcon(
@@ -123,10 +128,22 @@ class DetailTask extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           GestureDetector(
-                            onTap: (){
-                              print("Tâche terminée!");
-                              print(task.dateEnd);
-                              Task.tasks.remove(task);
+                            onTap: () async {
+                              var body = {
+                                "title": task.title,
+                                "description": task.description,
+                                "dateCreation": TaskDateViewmodel.formatDate(task.dateCreation),
+                                "dateStart": TaskDateViewmodel.formatDate(task.dateStart),
+                                "dateEnd": TaskDateViewmodel.formatDate(task.dateEnd),
+                                "statut": "Terminé",
+                                "priority": task.priority,
+                                "rappel": task.remind,
+                                "category": task.category
+                              };
+                              bool success = await taskViewModel.updateTask(task.taskId, body);
+                              if(success){
+                                Navigator.of(context).pop();
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -211,15 +228,48 @@ class DetailTask extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2, horizontal: 4),
-                            decoration: BoxDecoration(
-                                color: statutColor(),
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              task.statut,
-                              style: TextStyle(fontSize: 14, color: statutTextColor(), fontWeight: FontWeight.bold),
+                          GestureDetector(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                              decoration: BoxDecoration(color: statutColor(), borderRadius: BorderRadius.circular(4)),
+                              child: PopupMenuButton<String>(
+                                onSelected: (value) async {
+                                  var body = {
+                                    "title": task.title,
+                                    "description": task.description,
+                                    "dateCreation": TaskDateViewmodel.formatDate(task.dateCreation),
+                                    "dateStart": TaskDateViewmodel.formatDate(task.dateStart),
+                                    "dateEnd": TaskDateViewmodel.formatDate(task.dateEnd),
+                                    "statut": value,
+                                    "priority": task.priority,
+                                    "rappel": task.remind,
+                                    "category": task.category
+                                  };
+                                  print(value);
+                                  bool success = await taskViewModel.updateTask(task.taskId, body);
+                                  if(success){
+                                    Navigator.of(context).pop();
+                                  }
+                                },
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    value: "À faire",
+                                    child: Container(padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4), child: Text("À faire", selectionColor: TaskProColor.red.withOpacity(.3),),),
+                                  ),
+                                  PopupMenuItem(
+                                    value: "En cours",
+                                    child: Container(padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4), child:  Text('En cours', selectionColor: TaskProColor.yellow.withOpacity(.3),),),
+                                  ),
+                                  PopupMenuItem(
+                                    value: "Terminé",
+                                    child: Container(padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4), child:  Text('Terminé', selectionColor: TaskProColor.green.withOpacity(.3),),),
+                                  ),
+                                ],
+                                child: Text(
+                                  task.statut,
+                                  style: TextStyle(fontSize: 14, color: statutTextColor(), fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           )
                         ],

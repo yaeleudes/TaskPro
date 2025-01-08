@@ -64,4 +64,23 @@ class TaskService {
       return false;
     }
   }
+
+  static Future<bool> deleteTask(int id) async {
+    try {
+      final url = Uri.parse("$baseUrl/tasks/delete/$id");
+      final token = await LocalStorage.getToken();
+      final response = await http.delete(url, headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'});
+
+      print(response.statusCode);
+      if (response.statusCode == 204) {
+        return true;
+      } else {
+        print('Erreur de suppression de la tâche : ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
 }

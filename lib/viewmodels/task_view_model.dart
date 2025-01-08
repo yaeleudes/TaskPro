@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../models/task.dart';
 import '../services/task_service.dart';
 
@@ -17,7 +18,6 @@ class TaskViewModel extends ChangeNotifier {
       _tasks = await TaskService.getTasks();
       print(_tasks.length);
     } catch (e) {
-      print("Hello");
       print(e);
     } finally {
       _isLoading = false;
@@ -28,11 +28,35 @@ class TaskViewModel extends ChangeNotifier {
   Future<void> fetchTodayTasks() async {
     _isLoading = true;
     notifyListeners();
-
     try {
-      _tasks = await TaskService.getTasks();
+      List<Task> listTask = await TaskService.getTasks();
+      _tasks = listTask.where(
+        (task){
+          return ["En cours", "À faire"].contains(task.statut) && isSameDay(task.dateEnd, DateTime.now());
+        }
+      ).toList();
     } catch (e) {
       // Handle error
+      print(e);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> fetchNotEndTasks() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      List<Task> listTask = await TaskService.getTasks();
+      _tasks = listTask.where(
+        (task){
+          return ["En cours", "À faire"].contains(task.statut);
+        }
+      ).toList();
+    } catch (e) {
+      // Handle error
+      print(e);
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -51,6 +75,7 @@ class TaskViewModel extends ChangeNotifier {
       return success;
     } catch (e) {
       // Handle error
+      print(e);
       return false;
     } finally {
       _isLoading = false;
@@ -64,6 +89,25 @@ class TaskViewModel extends ChangeNotifier {
 
     try {
       bool success = await TaskService.updateTask(id, body);
+      if (success) {
+        await fetchTasks();
+      }
+      return success;
+    } catch (e) {
+      // Handle error
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> deleteTask(int id) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      bool success = await TaskService.deleteTask(id);
       if (success) {
         await fetchTasks();
       }

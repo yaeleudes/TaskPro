@@ -99,8 +99,7 @@ class _AjouterTacheState extends State<AjouterTache> {
 
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 10, top: 10, bottom: 8),
+                    padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -133,19 +132,19 @@ class _AjouterTacheState extends State<AjouterTache> {
                             hintText: "Titre de la tâche"),
                         const SizedBox(height: 8),
                         TaskDescription(
-                            controller: descriptionController,
-                            hintText: "Décrivez votre tâche ici"),
+                          controller: descriptionController,
+                          hintText: "Décrivez votre tâche ici"
+                        ),
                         const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             TaskDatePickle(onDateSelected: _onDateSelected),
                             TaskRemindPickle(
-                                selectedRemind: _selectedRemind,
-                                onSelectedRemind: _onSelectedRemind),
-                            TaskPriorityPickle(
-                                priorityValue: _selectedPriority,
-                                onSelected: _onSelectedPriority),
+                              selectedRemind: _selectedRemind,
+                              onSelectedRemind: _onSelectedRemind
+                            ),
+                            TaskPriorityPickle(priorityValue: _selectedPriority, onSelected: _onSelectedPriority),
                           ],
                         ),
                         const SizedBox(height: 16),
@@ -159,13 +158,9 @@ class _AjouterTacheState extends State<AjouterTache> {
                                   var body = {
                                     "title": titleController.text,
                                     "description": descriptionController.text,
-                                    "dateCreation": TaskDateViewmodel.formatDate(
-                                        DateTime.now()),
-                                    "dateStart": TaskDateViewmodel.formatDate(
-                                        DateTime.now()),
-                                    "dateEnd": TaskDateViewmodel.formatDate(
-                                        _selectedDay,
-                                        _selectedTime?.format(context)),
+                                    "dateCreation": TaskDateViewmodel.formatDate(DateTime.now()),
+                                    "dateStart": TaskDateViewmodel.formatDate(DateTime.now()),
+                                    "dateEnd": TaskDateViewmodel.formatDate(_selectedDay, _selectedTime?.format(context)),
                                     "statut": "À faire",
                                     "priority": _selectedPriority == "Priorité"
                                         ? ''

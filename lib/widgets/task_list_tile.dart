@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 import 'package:task_pro/constants/task_pro_color.dart';
 import 'package:task_pro/viewmodels/task_date_viewmodel.dart';
+import 'package:task_pro/viewmodels/task_view_model.dart';
 
 import '../models/task.dart';
 import 'modals/detail_task.dart';
@@ -71,6 +73,7 @@ class TaskListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
+    final taskViewModel = Provider.of<TaskViewModel>(context);
     return Container(
       margin: const EdgeInsets.only(top: 8),
       decoration: BoxDecoration(
@@ -84,8 +87,21 @@ class TaskListTile extends StatelessWidget {
         title: Row(
           children: [
             GestureDetector(
-              onTap: (){
-                task.changeStatusToEnd();
+              onTap: () async {
+                var body = {
+                  "title": task.title,
+                  "description": task.description,
+                  "dateCreation": TaskDateViewmodel.formatDate(task.dateCreation),
+                  "dateStart": TaskDateViewmodel.formatDate(task.dateStart),
+                  "dateEnd": TaskDateViewmodel.formatDate(task.dateEnd),
+                  "statut": "Terminé",
+                  "priority": task.priority,
+                  "rappel": task.remind,
+                  "category": task.category
+                };
+                bool success = await taskViewModel.updateTask(task.taskId, body);
+                if(success){
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -130,12 +146,11 @@ class TaskListTile extends StatelessWidget {
                         size: 14.0,
                       ),
                       Text(
-                        "${TaskDateViewmodel.getSelectedDateD(task.dateEnd)} ${task.dateEnd.hour}:${task.dateEnd.minute}",
+                        "${TaskDateViewmodel.getSelectedDateD(task.dateEnd)}",
                         style: const TextStyle(fontSize: 14),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 2, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                         margin: const EdgeInsets.only(left: 4),
                         decoration: BoxDecoration(
                             color: statutColor(),

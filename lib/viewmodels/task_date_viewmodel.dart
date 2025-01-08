@@ -12,7 +12,7 @@ class TaskDateViewmodel {
     if (selectedDate == null) {
       return "Aucune date sélectionnée";
     }
-    return DateFormat('d MMM', 'fr_FR').format(selectedDate);
+    return DateFormat('d MMM HH:mm', 'fr_FR').format(selectedDate);
   }
 
   static String formatDate(DateTime? selectedDate, [String? selectedTime]) {

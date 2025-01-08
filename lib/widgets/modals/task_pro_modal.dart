@@ -14,7 +14,7 @@ class TaskProModal {
             bottom: MediaQuery.of(context).viewInsets.bottom
           ),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: MediaQuery.of(context).size.height * 0.5,
             child: const AjouterTache(),
           ),
         );
