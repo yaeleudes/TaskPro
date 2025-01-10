@@ -19,8 +19,13 @@ class _ParcourirPageState extends State<ParcourirPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
-      taskViewModel.fetchTasks();
+      try {
+        taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+        taskViewModel.fetchTasks();
+      } catch (e) {
+        print(e);
+      }
+      
     });
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 // import 'package:provider/provider.dart';
 import 'package:task_pro/models/user.dart';
+import 'package:task_pro/screens/pages/parametre.dart';
 import 'package:task_pro/utils/local_storage.dart';
 
 // import '../viewmodels/user_view_model.dart';
@@ -34,7 +35,9 @@ class _TaskProAppBarState extends State<TaskProAppBar> {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Parametre()));
+          },
           icon: const HugeIcon(
             icon: HugeIcons.strokeRoundedSettings02,
             color: Colors.black,
