@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
+import 'package:task_pro/models/user.dart';
+import 'package:task_pro/utils/local_storage.dart';
 
-import '../viewmodels/user_view_model.dart';
+// import '../viewmodels/user_view_model.dart';
 
-class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
+class TaskProAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-  const TaskProAppBar({super.key, required this.title});
+  final User? user;
+  const TaskProAppBar({super.key, required this.title, required this.user});
+
+  @override
+  State<TaskProAppBar> createState() => _TaskProAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _TaskProAppBarState extends State<TaskProAppBar> {
+  User? user;
 
   List<Widget> _buildActions() {
     final excludedTitles = ["Aujourd'hui", "Prochainement", "", "Rechercher"];
-    if (!excludedTitles.contains(title)) {
+    if (!excludedTitles.contains(widget.title)) {
       return [
         IconButton(
           onPressed: () {},
@@ -46,14 +56,28 @@ class TaskProAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
   }
 
+  void setUser() async {
+    user = await LocalStorage.getUser();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     final excludedTitles = ["Aujourd'hui", "Prochainement", "", "Rechercher"];
-    final userViewModel = Provider.of<UserViewModel>(context);
     return AppBar(
-      title: Text(excludedTitles.contains(title)? title: userViewModel.user?.nom ?? "myPsoeudo", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
-      actions: _buildActions()
-    );
+        title: Text(
+          excludedTitles.contains(widget.title)
+              ? widget.title
+              : widget.user?.nom ?? "myPsoeudo",
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        ),
+        actions: _buildActions());
   }
 }
-

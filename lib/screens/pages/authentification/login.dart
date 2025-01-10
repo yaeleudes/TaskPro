@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:task_pro/screens/pages/authentification/widgets/auth_app_bar.dart';
+import 'package:task_pro/services/auth_service.dart';
 import 'package:task_pro/widgets/messages/task_pro_message.dart';
 import '../../../constants/task_pro_color.dart';
-import '../../../viewmodels/user_view_model.dart';
+// import '../../../viewmodels/user_view_model.dart';
 import '../../../widgets/buttons/task_pro_action_button.dart';
 import '../../../widgets/inputs/task_pro_common_input.dart';
 import '../../../widgets/inputs/task_pro_password_input.dart';
@@ -19,10 +20,43 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+  Map<String, dynamic> reponse = {};
+
+
+
+  void connexion(Map<String, dynamic> body) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      var rep = await AuthService.login(body);
+      setState(() {
+        reponse = rep;
+      });
+      if (reponse['status']) {
+        TaskProMessage.showMessageAuth(context, Colors.green, reponse['message']);
+        context.go("/home");
+        // TaskProMessageModals.showMessageModal(context, result['message'], result['status'], (){context.go("/home");});
+      } else {
+        TaskProMessage.showMessageAuth(context, Colors.red, reponse['message']);
+        // TaskProMessageModals.showMessageModal(context, result['message'], result['status']);
+      }
+      
+    } catch (e) {
+      print(e);
+    } finally{
+      setState(() {
+      
+      isLoading = false;
+    });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
+    // final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
     return Stack(
       children: [
         Scaffold(
@@ -78,16 +112,10 @@ class _LoginState extends State<Login> {
                             "password": passwordController.text
                           };
                           print(body);
-                          var result = await userViewModel.login(body);
+                          // var result = await userViewModel.login(body);
+                          connexion(body);
                         
-                        if (result['status']) {
-                          TaskProMessage.showMessageAuth(context, Colors.green, result['message']);
-                          context.go("/home");
-                          // TaskProMessageModals.showMessageModal(context, result['message'], result['status'], (){context.go("/home");});
-                        } else {
-                          TaskProMessage.showMessageAuth(context, Colors.red, result['message']);
-                          // TaskProMessageModals.showMessageModal(context, result['message'], result['status']);
-                        }
+                        
                         }
                       ),
                     const SizedBox(
@@ -115,7 +143,7 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
-        if (userViewModel.isLoading)
+        if (isLoading)
           Positioned.fill(
             child: Container(
               color: Colors.white.withOpacity(0.5),

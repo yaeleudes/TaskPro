@@ -28,7 +28,7 @@ class AuthService {
         return {
           'status' : true,
           'user': user,
-          'message': 'Succès'
+          'message': 'Connexion réussie!'
         };
       } else {
         print('Erreur de connexion : ${response.statusCode}');
@@ -60,7 +60,7 @@ class AuthService {
       if (response.statusCode == 200) {
         return {
           'status' : true,
-          'message': 'Succès'
+          'message': 'Inscription réussie!'
         };
       } else {
         print('Erreur d\'inscription : ${response.statusCode}');

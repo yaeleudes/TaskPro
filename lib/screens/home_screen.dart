@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_pro/models/user.dart';
 import 'package:task_pro/widgets/bottomNavbar/task_pro_bottom_navbar.dart';
 import 'package:task_pro/widgets/buttons/task_pro_floating_button.dart';
 import 'package:task_pro/widgets/task_pro_app_bar.dart';
 
-import '../viewmodels/user_view_model.dart';
+import '../utils/local_storage.dart';
+// import '../viewmodels/user_view_model.dart';
 import '../widgets/modals/task_pro_modal.dart';
 import 'pages/agenda_page.dart';
 import 'pages/parcourir_page.dart';
@@ -20,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  UserViewModel userViewModel = UserViewModel();
+  User? user;
   final List<Widget> _pages = const [
     TodayPage(),
     AgendaPage(),
@@ -40,28 +42,34 @@ class _HomeScreenState extends State<HomeScreen> {
       _currentIndex = index;
     });
   }
+   void setUser() async {
+    user = await LocalStorage.getUser();
+    setState(() {
+      
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      userViewModel.getUser();
-    });
+    setUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // AppBar
-      appBar: TaskProAppBar(title: _appBarTitles[_currentIndex]),
+      appBar: TaskProAppBar(title: _appBarTitles[_currentIndex], user: user,),
 
       // Body
       body: _pages[_currentIndex],
 
       // NavigationBar
-      bottomNavigationBar: TaskProBottomNavbar(currentIndex: _currentIndex, onTap: _onItemTapped,),
+      bottomNavigationBar: TaskProBottomNavbar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+      ),
 
       // FloatingActionButton
       floatingActionButton: TaskProFloatingButton(onPressed: () async {

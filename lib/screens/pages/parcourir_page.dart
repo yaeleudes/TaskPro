@@ -20,7 +20,7 @@ class _ParcourirPageState extends State<ParcourirPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
-      taskViewModel.getCountTask();
+      taskViewModel.fetchTasks();
     });
   }
 
@@ -40,7 +40,7 @@ class _ParcourirPageState extends State<ParcourirPage> {
             },
             title: const Text("Terminé"),
             leading: Icon(Icons.check_circle_outline_rounded, color: TaskProColor.secondary,),
-            trailing: Text("${taskViewModel.endedTask}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+            trailing: Text("${taskViewModel.tasks.where((task) => ["Terminé"].contains(task.statut)).toList().length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
           ),
           ListTile(
             onTap: (){
@@ -48,7 +48,7 @@ class _ParcourirPageState extends State<ParcourirPage> {
             },
             title: const Text("En cours"),
             leading: Icon(Icons.arrow_circle_right_outlined, color: TaskProColor.secondary,),
-            trailing: Text("${taskViewModel.notDoneTask}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+            trailing: Text("${taskViewModel.tasks.where((task) => ["En cours"].contains(task.statut)).toList().length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
           ),
           ListTile(
             onTap: (){
@@ -56,7 +56,7 @@ class _ParcourirPageState extends State<ParcourirPage> {
             },
             title: const Text("À faire"),
             leading: Icon(Icons.circle_outlined, color: TaskProColor.secondary,),
-            trailing: Text("${taskViewModel.todoTask}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+            trailing: Text("${taskViewModel.tasks.where((task) => ["À faire"].contains(task.statut)).toList().length}", style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
           ),
           ExpansionTile(
             title: const Text("Mes tâches", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),

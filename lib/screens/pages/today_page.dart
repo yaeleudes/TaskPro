@@ -3,7 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_pro/models/task.dart';
-import 'package:task_pro/viewmodels/user_view_model.dart';
+import 'package:task_pro/models/user.dart';
+import 'package:task_pro/utils/local_storage.dart';
+// import 'package:task_pro/services/task_service.dart';
+// import 'package:task_pro/viewmodels/user_view_model.dart';
 import 'package:task_pro/widgets/task_list_tile.dart';
 
 import '../../constants/task_pro_color.dart';
@@ -17,7 +20,11 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<TodayPage> {
-  List<Task>? tasks;
+  List<Task> tasks = [];
+  User? user;
+  bool isLoading = false;
+
+
   
   List<Task> setTodayTasks(List<Task> tasks){
     return tasks.where(
@@ -44,24 +51,28 @@ class _TodayPageState extends State<TodayPage> {
     ).toList();
   }
 
+  void setUser() async {
+    user = await LocalStorage.getUser();
+    setState(() {
+      
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
-      final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       taskViewModel.fetchTasks();
-      userViewModel.getUser();
     });
+    setUser();
   }
   
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final taskViewModel = Provider.of<TaskViewModel>(context);
-    final userViewModel = Provider.of<UserViewModel>(context);
-    
 
     if (taskViewModel.isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -74,7 +85,7 @@ class _TodayPageState extends State<TodayPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset("assets/images/home_image.png", width: size.width * .65,),
-            Text("Bonjour, ${userViewModel.user?.nom}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+            Text("Bonjour, ${user?.nom}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
             Text("Aujourd'hui vous avez archévé ${setTodayTasksEnd(taskViewModel.tasks).length} tâche(s)"),
           ],
         ),

@@ -24,7 +24,7 @@ class TaskViewModel extends ChangeNotifier {
 
     try {
       _tasks = await TaskService.getTasks();
-      notifyListeners();
+      // notifyListeners();
       // print(_tasks.length);
     } catch (e) {
       print(e);
@@ -34,43 +34,43 @@ class TaskViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getCountTask() async {
-    _isLoading = true;
-    notifyListeners();
+  // Future<void> getCountTask() async {
+  //   _isLoading = true;
+  //   notifyListeners();
 
-    try {
-      _tasks = await TaskService.getTasks();
-      _endedTasks = _tasks.where((task) => ["Terminé"].contains(task.statut)).toList().length;
-      _todoTask = _tasks.where((task) => ["À faire"].contains(task.statut)).toList().length;
-      _notDoneTask = _tasks.where((task) => ["En cours"].contains(task.statut)).toList().length;
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
+  //   try {
+  //     _tasks = await TaskService.getTasks();
+  //     _endedTasks = _tasks.where((task) => ["Terminé"].contains(task.statut)).toList().length;
+  //     _todoTask = _tasks.where((task) => ["À faire"].contains(task.statut)).toList().length;
+  //     _notDoneTask = _tasks.where((task) => ["En cours"].contains(task.statut)).toList().length;
+  //     // notifyListeners();
+  //   } catch (e) {
+  //     print(e);
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
 
-  Future<void> fetchTodayTasks() async {
-    _isLoading = true;
-    notifyListeners();
-    try {
-      List<Task> listTask = await TaskService.getTasks();
-      _tasks = listTask.where(
-        (task){
-          return ["En cours", "À faire"].contains(task.statut) && isSameDay(task.dateEnd, DateTime.now());
-        }
-      ).toList();
-      notifyListeners();
-    } catch (e) {
-      // Handle error
-      print(e);
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
+  // Future<void> fetchTodayTasks() async {
+  //   _isLoading = true;
+  //   notifyListeners();
+  //   try {
+  //     List<Task> listTask = await TaskService.getTasks();
+  //     _tasks = listTask.where(
+  //       (task){
+  //         return ["En cours", "À faire"].contains(task.statut) && isSameDay(task.dateEnd, DateTime.now());
+  //       }
+  //     ).toList();
+  //     // notifyListeners();
+  //   } catch (e) {
+  //     // Handle error
+  //     print(e);
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
 
   Future<void> fetchNotEndTasks() async {
     _isLoading = true;
@@ -82,7 +82,7 @@ class TaskViewModel extends ChangeNotifier {
           return ["En cours", "À faire"].contains(task.statut);
         }
       ).toList();
-      notifyListeners();
+      // notifyListeners();
     } catch (e) {
       // Handle error
       print(e);
@@ -152,14 +152,14 @@ class TaskViewModel extends ChangeNotifier {
 
   List<Task> getListByCategory(String value) {
     _isLoading = true;
-    notifyListeners();
+    // notifyListeners();
     try {
       return _tasks.where((task) => task.category.toLowerCase().contains(value.toLowerCase())).toList();
     } catch (e) {
       return [];
     } finally {
       _isLoading = false;
-      notifyListeners();
+      // notifyListeners();
     }
   }
   List<Task> getListByStatus(String value) {

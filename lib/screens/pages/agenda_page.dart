@@ -34,8 +34,6 @@ class _AgendaPageState extends State<AgendaPage> {
       // final index = selectedDay.difference(DateTime.now()).inDays;
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
-        // final itemHeight = renderBox?.size.height ?? 56.0;
         _scrollController.animateTo(
           _expandedIndex * 56.0,
           // index * 56.0,
@@ -67,7 +65,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+     final taskViewModel = Provider.of<TaskViewModel>(context, listen: true);
     //  _reloadViex(taskViewModel.isLoading, context);
 
     return Stack(

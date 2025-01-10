@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:task_pro/screens/pages/authentification/widgets/auth_app_bar.dart';
-import 'package:task_pro/viewmodels/user_view_model.dart';
+// import 'package:task_pro/viewmodels/user_view_model.dart';
 import '../../../constants/task_pro_color.dart';
+import '../../../services/auth_service.dart';
 import '../../../widgets/buttons/task_pro_action_button.dart';
 import '../../../widgets/inputs/task_pro_common_input.dart';
 import '../../../widgets/inputs/task_pro_password_input.dart';
@@ -21,18 +22,47 @@ class _RegisterState extends State<Register> {
   TextEditingController prenomController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late bool isLoading;
+  bool isLoading = false;
+  Map<String, dynamic> reponse = {};
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    isLoading = false;
+  }
+
+  void inscription(Map<String, dynamic> body) async {
+     setState(() {
+      isLoading = true;
+    });
+
+    try {
+      var rep = await AuthService.register(body);
+      setState(() {
+        reponse = rep;
+      });
+      if (reponse['status']) {
+        TaskProMessage.showMessageAuth(context, Colors.green, reponse['message']);
+        context.go("/login");
+        // TaskProMessageModals.showMessageModal(context, result['message'], result['status'], (){context.go("/home");});
+      } else {
+        TaskProMessage.showMessageAuth(context, Colors.red, reponse['message']);
+        // TaskProMessageModals.showMessageModal(context, result['message'], result['status']);
+      }
+      
+    } catch (e) {
+      print(e);
+    } finally{
+      setState(() {
+      
+      isLoading = false;
+    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
+    // final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
 
     return Stack(
       children: [
@@ -100,15 +130,16 @@ class _RegisterState extends State<Register> {
                           "email": emailController.text,
                           "password": passwordController.text
                         };
-                        var result = await userViewModel.register(body);
-                        if (result['status']) {
-                          TaskProMessage.showMessageAuth(context, Colors.green, result['message']);
-                          context.go("/login");
-                          // TaskProMessageModals.showMessageModal(context, result['message'],result['status'], (){context.go("/login");});
-                        } else {
-                          TaskProMessage.showMessageAuth(context, Colors.red, result['message']);
-                          // TaskProMessageModals.showMessageModal(context, result['message'],result['status']);
-                        }
+                        // var result = await userViewModel.register(body);
+                        // if (result['status']) {
+                        //   TaskProMessage.showMessageAuth(context, Colors.green, result['message']);
+                        //   context.go("/login");
+                        //   // TaskProMessageModals.showMessageModal(context, result['message'],result['status'], (){context.go("/login");});
+                        // } else {
+                        //   TaskProMessage.showMessageAuth(context, Colors.red, result['message']);
+                        //   // TaskProMessageModals.showMessageModal(context, result['message'],result['status']);
+                        // }
+                        inscription(body);
                       }
                     ),
                   ],
@@ -117,7 +148,7 @@ class _RegisterState extends State<Register> {
             ),
           ),
         ),
-        if (userViewModel.isLoading)
+        if (isLoading)
           Positioned.fill(
             child: Container(
               color: Colors.white.withOpacity(0.5),
