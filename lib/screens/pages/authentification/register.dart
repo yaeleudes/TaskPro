@@ -7,7 +7,7 @@ import '../../../constants/task_pro_color.dart';
 import '../../../widgets/buttons/task_pro_action_button.dart';
 import '../../../widgets/inputs/task_pro_common_input.dart';
 import '../../../widgets/inputs/task_pro_password_input.dart';
-import '../../../widgets/modals/task_pro_message_modals.dart';
+import '../../../widgets/messages/task_pro_message.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    final UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
 
     return Stack(
       children: [
@@ -102,9 +102,12 @@ class _RegisterState extends State<Register> {
                         };
                         var result = await userViewModel.register(body);
                         if (result['status']) {
-                          TaskProMessageModals.showMessageModal(context, result['message'],result['status'], (){context.go("/login");});
+                          TaskProMessage.showMessageAuth(context, Colors.green, result['message']);
+                          context.go("/login");
+                          // TaskProMessageModals.showMessageModal(context, result['message'],result['status'], (){context.go("/login");});
                         } else {
-                          TaskProMessageModals.showMessageModal(context, result['message'],result['status']);
+                          TaskProMessage.showMessageAuth(context, Colors.red, result['message']);
+                          // TaskProMessageModals.showMessageModal(context, result['message'],result['status']);
                         }
                       }
                     ),

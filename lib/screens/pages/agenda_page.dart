@@ -67,7 +67,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     final taskViewModel = Provider.of<TaskViewModel>(context);
+     final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     //  _reloadViex(taskViewModel.isLoading, context);
 
     return Stack(

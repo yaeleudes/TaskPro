@@ -24,7 +24,8 @@ class TaskViewModel extends ChangeNotifier {
 
     try {
       _tasks = await TaskService.getTasks();
-      print(_tasks.length);
+      notifyListeners();
+      // print(_tasks.length);
     } catch (e) {
       print(e);
     } finally {
@@ -42,8 +43,9 @@ class TaskViewModel extends ChangeNotifier {
       _endedTasks = _tasks.where((task) => ["Terminé"].contains(task.statut)).toList().length;
       _todoTask = _tasks.where((task) => ["À faire"].contains(task.statut)).toList().length;
       _notDoneTask = _tasks.where((task) => ["En cours"].contains(task.statut)).toList().length;
+      notifyListeners();
     } catch (e) {
-      
+      print(e);
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -60,6 +62,7 @@ class TaskViewModel extends ChangeNotifier {
           return ["En cours", "À faire"].contains(task.statut) && isSameDay(task.dateEnd, DateTime.now());
         }
       ).toList();
+      notifyListeners();
     } catch (e) {
       // Handle error
       print(e);
@@ -79,6 +82,7 @@ class TaskViewModel extends ChangeNotifier {
           return ["En cours", "À faire"].contains(task.statut);
         }
       ).toList();
+      notifyListeners();
     } catch (e) {
       // Handle error
       print(e);

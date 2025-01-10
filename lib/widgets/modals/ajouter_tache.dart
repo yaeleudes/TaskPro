@@ -6,6 +6,7 @@ import 'package:task_pro/viewmodels/task_view_model.dart';
 import 'package:task_pro/widgets/buttons/task_pro_action_button.dart';
 import 'package:task_pro/widgets/inputs/task/task_date_pickle.dart';
 import 'package:task_pro/widgets/inputs/task/task_priority_pickle.dart';
+import 'package:task_pro/widgets/messages/task_pro_message.dart';
 
 import '../inputs/task/add_task_description_input.dart';
 import '../inputs/task/add_task_dropdown.dart';
@@ -84,7 +85,7 @@ class _AjouterTacheState extends State<AjouterTache> {
 
   @override
   Widget build(BuildContext context) {
-    final taskViewModel = Provider.of<TaskViewModel>(context);
+    final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
     return DraggableScrollableSheet(
       initialChildSize: 0.9,
       minChildSize: 0.5,
@@ -148,8 +149,7 @@ class _AjouterTacheState extends State<AjouterTache> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        AddTaskDropdown(
-                            dropDownValue: dropDownValue, onChanged: _onChanged),
+                        AddTaskDropdown(dropDownValue: dropDownValue, onChanged: _onChanged),
                         const SizedBox(height: 16),
                         TaskProActionButton(
                           buttonTitle: "Ajouter",
@@ -168,13 +168,16 @@ class _AjouterTacheState extends State<AjouterTache> {
                                     "rappel": _selectedRemind == "Rappel"
                                         ? ''
                                         : _selectedRemind,
-                                    "category": dropDownValue ?? ""
+                                    "category": dropDownValue ?? "Autre"
                                   };
                                   print(body);
                                   bool success = await taskViewModel.addTask(body);
                                   if (success) {
                                     Navigator.of(context).pop();
-                                  } else {}
+                                    TaskProMessage.showMessage(context, "Tâche ajouter avec succès!");
+                                  } else {
+                                    TaskProMessage.showMessage(context, "Une erreur s'est produite...", color: Colors.red);
+                                  }
                                   print('Date heure : ${TaskDateViewmodel.formatDate(_selectedDay, _selectedTime?.format(context))}');
                                 }
                               : null,

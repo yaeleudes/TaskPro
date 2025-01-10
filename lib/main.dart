@@ -6,7 +6,6 @@ import 'routes/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'utils/local_storage.dart';
 import 'viewmodels/task_view_model.dart';
 import 'viewmodels/user_view_model.dart';
 

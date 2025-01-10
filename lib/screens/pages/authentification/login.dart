@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:task_pro/screens/pages/authentification/widgets/auth_app_bar.dart';
+import 'package:task_pro/widgets/messages/task_pro_message.dart';
 import '../../../constants/task_pro_color.dart';
 import '../../../viewmodels/user_view_model.dart';
 import '../../../widgets/buttons/task_pro_action_button.dart';
 import '../../../widgets/inputs/task_pro_common_input.dart';
 import '../../../widgets/inputs/task_pro_password_input.dart';
-import '../../../widgets/modals/task_pro_message_modals.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    final UserViewModel userViewModel = Provider.of<UserViewModel>(context, listen: false);
     return Stack(
       children: [
         Scaffold(
@@ -81,9 +81,12 @@ class _LoginState extends State<Login> {
                           var result = await userViewModel.login(body);
                         
                         if (result['status']) {
-                          TaskProMessageModals.showMessageModal(context, result['message'], result['status'], (){context.go("/home");});
+                          TaskProMessage.showMessageAuth(context, Colors.green, result['message']);
+                          context.go("/home");
+                          // TaskProMessageModals.showMessageModal(context, result['message'], result['status'], (){context.go("/home");});
                         } else {
-                          TaskProMessageModals.showMessageModal(context, result['message'], result['status']);
+                          TaskProMessage.showMessageAuth(context, Colors.red, result['message']);
+                          // TaskProMessageModals.showMessageModal(context, result['message'], result['status']);
                         }
                         }
                       ),

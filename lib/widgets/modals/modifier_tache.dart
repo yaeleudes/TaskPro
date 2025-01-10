@@ -8,6 +8,7 @@ import '../../viewmodels/task_date_viewmodel.dart';
 import '../buttons/task_pro_action_button.dart';
 import '../inputs/task/add_task_description_input.dart';
 import '../inputs/task/add_task_title_input.dart';
+import '../messages/task_pro_message.dart';
 
 class ModifierTache extends StatefulWidget {
   final Task task;
@@ -113,6 +114,9 @@ class _ModifierTacheState extends State<ModifierTache> {
                             bool success = await taskViewModel.updateTask(widget.task.taskId, body);
                             if(success){
                               Navigator.of(context).pop();
+                              TaskProMessage.showMessage(context, "Tâche ajouter avec succès!");
+                            } else {
+                              TaskProMessage.showMessage(context, "Une erreur s'est produite...", color: Colors.red);
                             }
                           }, 
                         )

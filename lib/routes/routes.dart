@@ -6,7 +6,6 @@ import 'package:task_pro/screens/pages/authentification/login.dart';
 import 'package:task_pro/screens/pages/welcome/welcome_page.dart';
 import '../screens/pages/authentification/register.dart';
 import '../splash.dart';
-import '../utils/local_storage.dart';
 
 class Routes {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');

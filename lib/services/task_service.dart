@@ -4,7 +4,8 @@ import '../models/task.dart';
 import '../utils/local_storage.dart';
 
 class TaskService {
-  static String baseUrl = "http://192.168.42.42:8060/task-pro/api/v1";
+  // static String baseUrl = "http://192.168.69.42:8081/task-pro/api/v1";
+  static String baseUrl = "http://13.50.187.128:8081/task-pro/api/v1";
 
   // Charger les tâches de l'utilisateur
   static Future<List<Task>> getTasks() async {

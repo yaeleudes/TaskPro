@@ -61,12 +61,13 @@ class _TodayPageState extends State<TodayPage> {
     Size size = MediaQuery.of(context).size;
     final taskViewModel = Provider.of<TaskViewModel>(context);
     final userViewModel = Provider.of<UserViewModel>(context);
+    
 
     if (taskViewModel.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if(setTodayTasks(taskViewModel.tasks).isEmpty){
+    if(setTodayTasks(taskViewModel.tasks).isEmpty && setTasksLate(taskViewModel.tasks).isEmpty){
       return Container(
         alignment: Alignment.center,
         child: Column(

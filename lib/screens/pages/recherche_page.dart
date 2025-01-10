@@ -53,7 +53,8 @@ class _RecherchePageState extends State<RecherchePage> {
 
   @override
   Widget build(BuildContext context) {
-    final taskViewModel = Provider.of<TaskViewModel>(context);
+    // final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+    final taskViewModel = context.read<TaskViewModel>();
     if (taskViewModel.isLoading) {
       clearController();
       return const Center(child: CircularProgressIndicator());

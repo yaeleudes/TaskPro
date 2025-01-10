@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_pro/constants/task_pro_color.dart';
 
-import 'utils/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
